@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "install": "",
+    "build": "",
+    "run": ""
+  },
+  "engines": {
+    "node": "12.x"
+  },
+  "name": "workflows-serverless",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT"
+}
