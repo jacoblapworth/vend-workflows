@@ -1,7 +1,7 @@
 import simpleOauth from 'simple-oauth2'
 
 const vendApi = 'https://secure.vendhq.com/connect'
-const domain = 'thetaxman'
+const domain = 'secure'
 
 /* process.env.URL from netlify BUILD environment variables */
 const siteUrl = process.env.URL || 'http://localhost:3000'

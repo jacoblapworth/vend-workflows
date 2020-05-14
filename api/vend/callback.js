@@ -9,10 +9,7 @@ export default (req, res) => {
   const tokenConfig = {
     code: code,
     redirect_uri: config.redirect_uri,
-    tokenHost: `https://${domainPrefix}.vendhq.com`,
-    tokenPath: `/api/1.0/token`,
-    client_id: config.clientId,
-    client_secret: config.clientSecret,
+    scope: '',
   };
 
   const oauth2 = simpleOauth.create({
