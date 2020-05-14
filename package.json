@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "install": "",
-    "build": "",
-    "run": ""
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
   },
   "engines": {
     "node": "12.x"
@@ -12,6 +12,9 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "next": "^9.4.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "simple-oauth2": "^3.4.0"
   }
 }
