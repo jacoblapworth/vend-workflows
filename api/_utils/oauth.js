@@ -17,7 +17,7 @@ export const config = {
   tokenHost: `https://${domain}.vendhq.com`,
   tokenPath: `/api/1.0/token`,
   /* redirect_uri is the callback url after successful signin */
-  redirect_uri: `${siteUrl}/api/auth-callback`,
+  redirect_uri: `${siteUrl}/api/vend/callback`,
 }
 
 function authInstance(credentials) {
