@@ -12,6 +12,8 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@vendhq/shared-react": "^1.12.0",
+    "@vendhq/vend-styles": "^2.0.1",
     "next": "^9.4.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
