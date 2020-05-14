@@ -4,7 +4,7 @@ const vendApi = 'https://secure.vendhq.com/connect'
 const domain = 'thetaxman'
 
 /* process.env.URL from netlify BUILD environment variables */
-const siteUrl = process.env.VERCEL_URL || 'http://localhost:3000'
+const siteUrl = process.env.URL || 'http://localhost:3000'
 
 export const config = {
   /* values set in terminal session or in netlify environment variables */
