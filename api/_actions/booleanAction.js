@@ -1,5 +1,5 @@
 import { WORKFLOW_ACTIONS } from "../_constants";
-import { getValueForCustomField } from "../_utils";
+import { getValueForCustomField } from "../_utils/getValueForCustomField";
 
 export function booleanAction(lineItem) {
   const VERIFIED = getValueForCustomField(lineItem.custom_fields, 'Boolean');
