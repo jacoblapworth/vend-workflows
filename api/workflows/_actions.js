@@ -1,4 +1,5 @@
 import { getValueForCustomField } from "./_utils";
+import { WORKFLOW_ACTIONS } from "./_constants";
 
 export function stopAction(lineItem) {
   const action = {
@@ -13,7 +14,7 @@ export function stopAction(lineItem) {
 
 export function confirmAction(lineItem) {
   const action = {
-    type: 'confirm',
+    type: WORKFLOW_ACTIONS.CONFIRM,
     title: 'Wait!',
     message: 'Please confirm, before taking payment.',
     dismiss_label: 'Cancel',
@@ -31,7 +32,7 @@ export function requireIMEIAction(lineItem) {
   }
 
   const action = {
-    type: 'require_custom_field',
+    type: WORKFLOW_ACTIONS.REQUIRE_CUSTOM_FIELD,
     title: 'Enter IMEI.',
     message: 'Please enter the serial number for this product.',
     entity: 'line_item',
@@ -40,7 +41,7 @@ export function requireIMEIAction(lineItem) {
   };
 
   const invalidAction = {
-    type: 'require_custom_field',
+    type: WORKFLOW_ACTIONS.REQUIRE_CUSTOM_FIELD,
     title: 'Invalid IMEI.',
     message: 'Please enter a valid serial number for this product. Hint: abc',
     entity: 'line_item',
@@ -63,7 +64,7 @@ export function booleanAction(lineItem) {
   const verified = getValueForCustomField(lineItem.custom_fields, 'Boolean');
 
   const action = {
-    type: 'require_custom_field',
+    type: WORKFLOW_ACTIONS.REQUIRE_CUSTOM_FIELD,
     title: 'Please tick the checkbox.',
     message: 'This line_item will have a custom field "boolean" set to the value:',
     entity: 'line_item',
@@ -92,7 +93,7 @@ export function requireAgeVerification(lineItem, ctx) {
 
       if (isOver18) {
         const action = {
-          type: 'set_custom_field',
+          type: WORKFLOW_ACTIONS.SET_CUSTOM_FIELD,
           entity: 'sale',
           custom_field_name: 'verified',
           custom_field_value: true,
@@ -101,7 +102,7 @@ export function requireAgeVerification(lineItem, ctx) {
         return action;
       }
       const action = {
-        type: 'stop',
+        type: WORKFLOW_ACTIONS.STOP,
         title: '🔞 You can\'t sell alcohol to someone underage.',
         message: 'This customer is younger than 18.',
         dismiss_label: 'Got It',
@@ -113,7 +114,7 @@ export function requireAgeVerification(lineItem, ctx) {
     const ddmmyy = `${over18Date.getDate()}/${over18Date.getMonth() + 1}/${over18Date.getFullYear()}`;
 
     const action = {
-      type: 'require_custom_field',
+      type: WORKFLOW_ACTIONS.REQUIRE_CUSTOM_FIELD,
       title: '🔞 Please check the customer\'s ID.',
       message: `The customer needs to be 18 years or older. \nBirthday before: ${ddmmyy}`,
       entity: 'sale',
@@ -131,7 +132,7 @@ export function requireCustomerAction(lineItem, ctx) {
 
   if (customer.id.length <= 0) {
     const action = {
-      type: 'confirm',
+      type: WORKFLOW_ACTIONS.CONFIRM,
       title: 'Please add a customer.',
       message: 'You should add a customer to this sale, and ask for their email address.',
       dismiss_label: 'Back',
@@ -150,7 +151,7 @@ export function itemReturn(lineItem, ctx) {
 
   if (!returnReason) {
     const action = {
-      type: 'require_custom_field',
+      type: WORKFLOW_ACTIONS.REQUIRE_CUSTOM_FIELD,
       title: '↪️ Why is this item being returned?',
       message: 'Please choose a reason for this return:',
       entity: 'line_item',
@@ -174,18 +175,16 @@ export function itemReturn(lineItem, ctx) {
     return action;
   }
 
-  console.log(returnReason);
-
   if (returnReason === 'other') {
     const clearReason = {
-      type: 'set_custom_field',
+      type: WORKFLOW_ACTIONS.SET_CUSTOM_FIELD,
       entity: 'line_item',
       entity_id: lineItem.id,
       custom_field_name: CUSTOM_FIELD_NAME,
       custom_field_value: '',
     };
     const action = {
-      type: 'require_custom_field',
+      type: WORKFLOW_ACTIONS.REQUIRE_CUSTOM_FIELD,
       title: '↪️ Why is this item being returned?',
       message: 'Please enter a reason for this return:',
       entity: 'line_item',
@@ -207,7 +206,7 @@ export function tourTimeAction(lineItem, ctx) {
     const now = new Date();
 
     const action = {
-      type: 'require_custom_field',
+      type: WORKFLOW_ACTIONS.REQUIRE_CUSTOM_FIELD,
       title: '📆 Choose a tour time.',
       message: 'Here are the available timeslots for the product:',
       entity: 'line_item',
@@ -241,7 +240,7 @@ export function redeemReward(lineItem, ctx) {
 
   if (!rewardId) {
     const action = {
-      type: 'require_custom_field',
+      type: WORKFLOW_ACTIONS.REQUIRE_CUSTOM_FIELD,
       title: '🎁 Choose a reward.',
       message: 'This product comes with a complementary reward:',
       entity: 'sale',
@@ -269,7 +268,7 @@ export function redeemReward(lineItem, ctx) {
 
   if (!rewardAdded) {
     const action = {
-      type: 'add_line_item',
+      type: WORKFLOW_ACTIONS.ADD_LINE_ITEM,
       product_sku: 'reward',
     };
 
