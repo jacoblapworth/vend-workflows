@@ -10,5 +10,8 @@
   "name": "workflows-serverless",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "simple-oauth2": "^3.4.0"
+  }
 }
