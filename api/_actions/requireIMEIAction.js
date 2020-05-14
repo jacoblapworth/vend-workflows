@@ -1,5 +1,5 @@
 import { WORKFLOW_ACTIONS } from "../_constants";
-import { getValueForCustomField } from "../_utils/getValueForCustomField";
+import { getValueForCustomField } from "../_utils/customFields"; lds";
 
 export function requireIMEIAction(lineItem) {
   let serial = {};
