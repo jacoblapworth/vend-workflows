@@ -1,3 +1,5 @@
+import cookies from 'next-cookies'
+
 function Connected() {
   return (
     <div className='vd-section'>

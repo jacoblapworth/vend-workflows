@@ -33,6 +33,7 @@ export default (req, res) => {
       const token = oauth2.accessToken.create(result)
       console.log('access_token', token.token)
       const accessToken = token.token
+      res.setCookie({ token: accessToken })
       return res.writeHead(302, { location: '/connected' }).send()
     })
     .catch((error) => {
