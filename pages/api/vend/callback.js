@@ -1,6 +1,8 @@
 import { config } from '../_utils/oauth'
 import simpleOauth from 'simple-oauth2'
 
+import { serialize } from 'cookie'
+
 export default (req, res) => {
 
   const code = req.query.code
@@ -33,16 +35,17 @@ export default (req, res) => {
       const token = oauth2.accessToken.create(result)
       console.log('access_token', token.token)
       const accessToken = token.token
-      res.setCookie({ token: accessToken })
+      console.log(res);
+
       return res.writeHead(302, { location: '/connected' }).send()
     })
     .catch((error) => {
-      console.log('Access Token Error', error.message)
+      console.log('Access Token Error:', error.message)
       console.log(error)
       return res.status(error.statusCode || 500).send({
         error: {
           message: error.message,
-          error: error.data.payload
+          error: error.data.payload ?? null
         }
       })
     })
