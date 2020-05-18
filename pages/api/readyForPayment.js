@@ -30,7 +30,7 @@ export default function readyForPayment(event) {
 
     // Returns
     if (lineItem.quantity < 0) {
-      return itemReturn(lineItem, event);
+      return Actions.itemReturn(lineItem, event);
     }
 
     // Line-item actions
