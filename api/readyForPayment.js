@@ -10,6 +10,7 @@ function lineItemActions(lineItem, ctx) {
     '86a63c16-6a21-0906-5d64-b79236dba474': Actions.tourTimeAction,
     'a584c971-9dfa-c919-f8ee-91a58938ea18': Actions.requireCustomerAction,
     '3ef832e7-a556-d0b0-bfe7-5c62927fb5c4': Actions.redeemReward,
+    'c879df57-c246-f98b-1caf-059f6f69ee44': Actions.formAction,
   };
 
   const productId = lineItem.product_id.toLowerCase();
