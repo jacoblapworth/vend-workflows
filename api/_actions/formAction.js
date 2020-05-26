@@ -7,7 +7,7 @@ export function formAction(lineItem) {
     'demo_authorised',
     'demo_required_date',
   ]
-  const MECHANIC = getValueForCustomField(lineItem.custom_fields, CUSTOM_FIELD_NAME[0]);
+  const MECHANIC = getValueForCustomField(lineItem.custom_fields, CUSTOM_FIELD_NAMES[0]);
 
   const required_custom_fields = CUSTOM_FIELD_NAMES.map(name => { return { 'name': name } })
 
