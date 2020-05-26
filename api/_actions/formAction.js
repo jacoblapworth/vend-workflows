@@ -13,8 +13,8 @@ export function formAction(lineItem) {
 
   const action = {
     type: WORKFLOW_ACTIONS.REQUIRE_CUSTOM_FIELDS,
-    title: 'Please tick the checkbox.',
-    message: 'This line_item will have a custom field "boolean" set to the value:',
+    title: 'Enter repair job details.',
+    message: 'Please enter the job details for this repair:',
     entity: 'line_item',
     entity_id: lineItem.id,
     required_custom_fields
