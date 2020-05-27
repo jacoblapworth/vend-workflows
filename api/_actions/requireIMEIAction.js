@@ -2,11 +2,7 @@ import { WORKFLOW_ACTIONS } from "../_constants";
 import { getValueForCustomField } from "../_utils/customFields"
 
 export function requireIMEIAction(lineItem) {
-  let serial = {};
-
-  if (lineItem.custom_fields.length > 0) {
-    serial = getValueForCustomField(lineItem.custom_fields, 'serial');
-  }
+  const serial = getValueForCustomField(lineItem.custom_fields, 'serial');
 
   const action = {
     type: WORKFLOW_ACTIONS.REQUIRE_CUSTOM_FIELD,
@@ -26,10 +22,10 @@ export function requireIMEIAction(lineItem) {
     custom_field_name: 'serial',
   };
 
-  if (!serial.value) {
+  if (!serial) {
     console.log('Serial required.');
     return action;
-  } if (!serial.value.match(/abc/)) {
+  } if (!serial.match(/abc/)) {
     console.log('Serial is invalid: ', serial);
     return invalidAction;
   }
