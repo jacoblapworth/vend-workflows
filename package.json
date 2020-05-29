@@ -8,6 +8,8 @@
     "node": "12.x"
   },
   "name": "workflows-serverless",
+  "description": "Demo business rules for Workflows by Vend.",
+  "repository": "github:jacoblapworth/vend-workflows",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",

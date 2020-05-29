@@ -7,6 +7,7 @@ import { requireCustomerAction } from "./requireCustomerAction";
 import { requireIMEIAction } from "./requireIMEIAction";
 import { stopAction } from "./stopAction";
 import { tourTimeAction } from "./tourTimeAction";
+import { formAction } from "./formAction";
 
 export {
   confirmAction,
@@ -18,4 +19,5 @@ export {
   requireIMEIAction,
   stopAction,
   tourTimeAction,
+  formAction,
 }
