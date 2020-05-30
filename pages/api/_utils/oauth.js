@@ -1,23 +1,20 @@
-import simpleOauth from 'simple-oauth2'
+import auth from 'simple-oauth2'
 
-const vendApi = 'https://secure.vendhq.com/connect'
-const domain = 'secure'
+const domainPrefix = 'secure'
 
-/* process.env.URL from netlify BUILD environment variables */
-const siteUrl = process.env.URL || 'http://localhost:3000'
+/* process.env.URL from environment variables */
+const appUrl = process.env.URL || 'http://localhost:3000'
 
 export const config = {
-  /* values set in terminal session or in netlify environment variables */
   clientId: process.env.VEND_CLIENT_ID,
   clientSecret: process.env.VEND_CLIENT_SECRET,
-  /* Intercom oauth API endpoints */
 
   authorizeHost: `https://secure.vendhq.com`,
   authorizePath: `/connect`,
-  tokenHost: `https://${domain}.vendhq.com`,
+  tokenHost: `https://${domainPrefix}.vendhq.com`,
   tokenPath: `/api/1.0/token`,
-  /* redirect_uri is the callback url after successful signin */
-  redirect_uri: `${siteUrl}/api/vend/callback`,
+
+  redirect_uri: `${appUrl}/api/vend/callback`,
 }
 
 function authInstance(credentials) {
@@ -28,19 +25,21 @@ function authInstance(credentials) {
     throw new Error('MISSING REQUIRED ENV VARS. Please set VEND_CLIENT_SECRET')
   }
   // return oauth instance
-  return simpleOauth.create(credentials)
+  return auth.create(credentials)
 }
 
-/* Create oauth2 instance to use in our two functions */
-export default authInstance({
-  client: {
-    id: config.clientId,
-    secret: config.clientSecret
-  },
-  auth: {
-    authorizeHost: config.authorizeHost,
-    authorizePath: config.authorizePath,
-    tokenHost: config.tokenHost,
-    tokenPath: config.tokenPath,
-  }
-})
+export default function authWithDomain(domain = null) {
+  return authInstance({
+    client: {
+      id: config.clientId,
+      secret: config.clientSecret
+    },
+    auth: {
+      authorizeHost: config.authorizeHost,
+      authorizePath: config.authorizePath,
+      tokenHost: domain ? `https://${domain}.vendhq.com` : config.tokenHost,
+      tokenPath: config.tokenPath,
+    }
+  })
+}
+
