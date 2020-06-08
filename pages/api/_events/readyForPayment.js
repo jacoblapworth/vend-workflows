@@ -1,4 +1,4 @@
-import * as Actions from './_actions'
+import * as Actions from '../_actions'
 
 function lineItemActions(lineItem, ctx) {
   const actions = {
@@ -23,7 +23,7 @@ function lineItemActions(lineItem, ctx) {
   return action;
 }
 
-export default function readyForPayment(event) {
+export function readyForPayment(event) {
   const lineItems = event.sale.line_items;
 
   const actions = lineItems.flatMap((lineItem, i) => {

@@ -1,4 +1,5 @@
 import auth, { config } from '../_utils/oauth'
+import jwt from 'jsonwebtoken'
 
 export default (req, res) => {
   const code = req.query.code
@@ -16,11 +17,13 @@ export default (req, res) => {
       console.log(accessToken);
 
       const tokenObject = accessToken.token
-      const token = tokenObject.token
+      // const token = tokenObject.token
 
-      res.setHeader('Set-Cookie', `workflows:token=${token}`)
+      var token = jwt.sign(tokenObject, 'shhhhh');
+
+      // res.setHeader('Set-Cookie', `workflows:token=${token}`)
       res.statusCode = 302
-      res.setHeader('location', '/connected')
+      res.setHeader('location', '/custom-fields')
       res.end()
     })
     .catch((error) => {

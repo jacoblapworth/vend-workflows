@@ -1,4 +1,4 @@
-import readyForPayment from './readyForPayment'
+import readyForPayment from './_events/readyForPayment'
 
 async function workflow(event) {
   console.log('Event:', event);
