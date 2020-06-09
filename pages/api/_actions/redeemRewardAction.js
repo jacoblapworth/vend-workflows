@@ -3,9 +3,14 @@ import { getValueForCustomField } from "../_utils/customFields";
 
 export function redeemReward(lineItem, ctx) {
   const CUSTOM_FIELD_NAME = 'reward';
-  const rewardId = getValueForCustomField(ctx.sale.custom_fields, CUSTOM_FIELD_NAME);
+  let REWARD_ID = null
+  try {
+    REWARD_ID = getValueForCustomField(ctx.sale.custom_fields, CUSTOM_FIELD_NAME);
+  } catch (error) {
+    console.warn(error);
+  }
 
-  if (!rewardId) {
+  if (!REWARD_ID) {
     const action = {
       type: WORKFLOW_ACTIONS.REQUIRE_CUSTOM_FIELD,
       title: '🎁 Choose a reward.',

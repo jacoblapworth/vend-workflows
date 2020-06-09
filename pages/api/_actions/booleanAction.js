@@ -2,7 +2,12 @@ import { WORKFLOW_ACTIONS } from "../_constants";
 import { getValueForCustomField } from "../_utils/customFields";
 
 export function booleanAction(lineItem) {
-  const VERIFIED = getValueForCustomField(lineItem.custom_fields, 'Boolean');
+  let VERIFIED = false
+  try {
+    VERIFIED = getValueForCustomField(lineItem.custom_fields, 'Boolean');
+  } catch (error) {
+    console.warn(error);
+  }
 
   const action = {
     type: WORKFLOW_ACTIONS.REQUIRE_CUSTOM_FIELD,

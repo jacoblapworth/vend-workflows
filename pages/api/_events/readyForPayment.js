@@ -11,13 +11,14 @@ function lineItemActions(lineItem, ctx) {
     throw new Error("No custom fields for this product.")
   }
 
-  const rule = getValueForCustomField(lineItem.product.custom_fields, 'demo_rule')
+  const CUSTOM_FIELD = 'demo_rule'
+  const RULE = getValueForCustomField(lineItem.product.custom_fields, CUSTOM_FIELD)
 
-  if (typeof Actions[rule] === 'undefined') {
-    throw new Error(`No action with the name: "${rule}"`)
+  if (typeof Actions[RULE] === 'undefined') {
+    throw new Error(`No action with the name: "${RULE}"`)
   }
 
-  const ruleAction = Actions[rule](lineItem, ctx)
+  const ruleAction = Actions[RULE](lineItem, ctx)
 
   return ruleAction;
 }

@@ -2,9 +2,14 @@ import { WORKFLOW_ACTIONS } from "../_constants";
 import { getValueForCustomField } from "../_utils/customFields";
 
 export function requireAgeVerification(lineItem, ctx) {
-  const verified = getValueForCustomField(ctx.sale.custom_fields, 'verified');
+  let VERIFIED = false
+  try {
+    VERIFIED = getValueForCustomField(ctx.sale.custom_fields, 'verified');
+  } catch (error) {
+    console.warn(error)
+  }
 
-  if (!verified) {
+  if (!VERIFIED) {
     const today = new Date();
     const over18Date = new Date(today.setFullYear(today.getFullYear() - 18));
     const { date_of_birth } = ctx.customer;

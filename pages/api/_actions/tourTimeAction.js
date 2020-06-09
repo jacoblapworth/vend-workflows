@@ -3,9 +3,15 @@ import { getValueForCustomField } from "../_utils/customFields";
 
 export function tourTimeAction(lineItem, ctx) {
   const CUSTOM_FIELD_NAME = 'tour-datetime';
-  const tour_datetime = getValueForCustomField(lineItem.custom_fields, CUSTOM_FIELD_NAME);
+  let TOUR_DATETIME = null
+  try {
+    TOUR_DATETIME = getValueForCustomField(lineItem.custom_fields, CUSTOM_FIELD_NAME);
+  } catch (error) {
+    console.warn(error);
 
-  if (!tour_datetime) {
+  }
+
+  if (!TOUR_DATETIME) {
     const now = new Date();
 
     const action = {
