@@ -1,23 +1,27 @@
 export function getValueForCustomField(customFields, customFieldName) {
-  console.log('Custom fields:', customFieldName, customFields);
+  console.log('Custom fields:', customFields);
 
   const customField = customFields.find((custom_field) => custom_field.name == customFieldName);
 
   if (!customField) {
-    return null;
+    throw new Error(`No custom field with name ${customFieldName}`)
   }
 
+  let value = null
+
   if (customField.value) {
-    return customField.value;
+    value = customField.value;
   }
 
   if (customField.string_value) {
-    return customField.string_value;
+    value = customField.string_value;
   }
 
   if (customField.boolean_value) {
-    return customField.boolean_value;
+    value = customField.boolean_value;
   }
 
-  return null;
+  return value;
 }
+
+export default getValueForCustomField
