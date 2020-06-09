@@ -14,7 +14,7 @@ function lineItemActions(lineItem, ctx) {
   const rule = getValueForCustomField(lineItem.product.custom_fields, 'demo_rule')
 
   if (typeof Actions[rule] === 'undefined') {
-    throw new Error("No action with that name.")
+    throw new Error(`No action with the name: "${rule}"`)
   }
 
   const ruleAction = Actions[rule](lineItem, ctx)
@@ -37,7 +37,7 @@ export default function readyForPayment(event) {
     try {
       return lineItemActions(lineItem, event);
     } catch (error) {
-      console.error(error)
+      console.warn(error)
     }
 
   }).filter((item) => !!item);
