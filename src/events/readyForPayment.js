@@ -1,5 +1,5 @@
-import * as Actions from '../_actions'
-import { getValueForCustomField } from '../_utils/customFields'
+import * as Actions from '../actions'
+import { getValueForCustomField } from '../utils/customFields'
 
 function lineItemActions(lineItem, ctx) {
   /*

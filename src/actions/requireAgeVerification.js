@@ -1,5 +1,5 @@
-import { WORKFLOW_ACTIONS } from "../_constants";
-import { getValueForCustomField } from "../_utils/customFields";
+import { WORKFLOW_ACTIONS } from "../constants";
+import { getValueForCustomField } from "../utils/customFields";
 
 export function requireAgeVerification(lineItem, ctx) {
   let VERIFIED = false

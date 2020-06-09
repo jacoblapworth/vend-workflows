@@ -1,5 +1,5 @@
-import { WORKFLOW_ACTIONS } from "../_constants";
-import { getValueForCustomField } from "../_utils/customFields";
+import { WORKFLOW_ACTIONS } from "../constants";
+import { getValueForCustomField } from "../utils/customFields";
 
 export function itemReturn(lineItem, ctx) {
   const CUSTOM_FIELD_NAME = 'return-reason';

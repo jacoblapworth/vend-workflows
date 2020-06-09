@@ -1,4 +1,4 @@
-import { WORKFLOW_ACTIONS } from "../_constants";
+import { WORKFLOW_ACTIONS } from "../constants";
 
 export function confirmAction(lineItem) {
   const action = {
