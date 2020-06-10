@@ -1,4 +1,4 @@
-import { config } from '../_utils/oauth'
+import { config } from '../../../utils/oauth'
 import simpleOauth from 'simple-oauth2'
 
 export default (req, res) => {
