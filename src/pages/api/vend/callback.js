@@ -19,8 +19,6 @@ const handler = (req, res) => {
     .then((result) => {
 
       const accessToken = auth(domainPrefix).accessToken.create(result)
-      console.log(accessToken);
-
       const token = jwt.sign(accessToken.token, PRIVATE_KEY)
 
       const cookieConfig = {

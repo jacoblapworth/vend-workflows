@@ -14,7 +14,6 @@ const handler = async (req, res) => {
   })
 
   vendApi.post('graphql', req.body).then((result) => {
-    console.log(result.data)
     res.send(result.data)
   })
 
