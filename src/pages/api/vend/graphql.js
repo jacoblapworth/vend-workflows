@@ -13,9 +13,11 @@ const handler = async (req, res) => {
     headers: { Authorization: 'Bearer ' + decoded.access_token },
   })
 
-  vendApi.post('graphql', req.body).then((result) => {
-    res.send(result.data)
-  })
+  await vendApi.post('graphql', req.body)
+    .catch((error) => console.log(error))
+    .then((result) => {
+      res.send(result.data)
+    })
 
 }
 

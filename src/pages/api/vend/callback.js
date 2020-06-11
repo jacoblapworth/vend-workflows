@@ -33,7 +33,7 @@ const handler = (req, res) => {
     })
     .catch((error) => {
       console.error(error)
-      return res.status(error.statusCode || 500).send({ error })
+      return res.status(error.statusCode || 500).send({ error }).end()
     })
 }
 
