@@ -21,8 +21,6 @@ const handler = (req, res) => {
       const accessToken = auth(domainPrefix).accessToken.create(result)
       const token = jwt.sign(accessToken.token, PRIVATE_KEY)
 
-      console.log('NODE_ENV', process.env.NODE_ENV);
-
       const cookieConfig = {
         sameSite: 'Strict',
         path: '/',
