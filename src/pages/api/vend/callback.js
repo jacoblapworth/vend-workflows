@@ -19,11 +19,12 @@ const handler = (req, res) => {
       console.log(accessToken);
 
       const tokenObject = accessToken.token
-      const token = tokenObject.token
+      const token = tokenObject.access_token
 
-      res.cookie('token', accessToken)
+      res.cookie('token', token, { path: '/' })
+      res.cookie('domainPrefix', domainPrefix, { path: '/' })
       res.statusCode = 302
-      res.setHeader('location', '/connected')
+      res.setHeader('location', '/custom-fields')
       res.end()
     })
     .catch((error) => {

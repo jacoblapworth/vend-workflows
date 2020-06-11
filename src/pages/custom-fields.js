@@ -5,16 +5,17 @@ import { GraphQLClient } from 'graphql-request'
 // import { withAuthSync } from "../utils/auth";
 import { Spinner } from '../components/Spinner'
 
-const API = 'https://cors-anywhere.herokuapp.com/https://thetaxman.vendhq.com/api/graphql'
-
 const CustomFields = props => {
+  const { token, domainPrefix } = props.cookies
+  const GRAPHQL_ENDPOINT = `https://${domainPrefix}.vendhq.com/api/graphql`
 
-  console.log(props);
+  const PROD = process.env.NODE_ENV == 'production'
 
+  const API = PROD ? '' : 'https://cors-anywhere.herokuapp.com/' + GRAPHQL_ENDPOINT
 
   const graphQLClient = new GraphQLClient(API, {
     headers: {
-      Authorization: 'Bearer 5OtjwgBqfINOmTyVvRBrC_Nq274OevQsbpRLMPkU',
+      Authorization: `Bearer ${token}`,
     },
   })
 
