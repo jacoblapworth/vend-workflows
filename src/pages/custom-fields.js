@@ -1,9 +1,6 @@
 import cookies from 'next-cookies'
 import useSWR from 'swr'
 import { GraphQLClient } from 'graphql-request'
-import loadable from '@loadable/component'
-
-const Tab = loadable(() => import('./OtherComponent'))
 
 import { Tab, Tabs, TabContent, SelectedTabProvider } from "@vendhq/shared-react";
 import { Spinner } from '../components/Spinner'
@@ -65,7 +62,7 @@ const CustomFields = props => {
           <pre>{type}</pre>
         </td>
         <td>
-          <pre>{visibleInUI ? <span vd-icon="fa-check" class="vd-pl1 fa-fw fa fa-check"></span> : ''}</pre>
+          <pre>{visibleInUI ? <span vd-icon="fa-check" className="vd-pl1 fa-fw fa fa-check"></span> : ''}</pre>
         </td>
       </tr>
     })
