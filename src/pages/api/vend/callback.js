@@ -1,5 +1,6 @@
 import auth, { config } from '../../../utils/oauth'
 import cookies from "../../../utils/cookies";
+import { serialize } from 'cookie'
 
 const handler = (req, res) => {
 
@@ -21,8 +22,7 @@ const handler = (req, res) => {
       const tokenObject = accessToken.token
       const token = tokenObject.access_token
 
-      res.cookie('token', token, { path: '/' })
-      res.cookie('domainPrefix', domainPrefix, { path: '/' })
+      res.cookie('workflows', { token, domainPrefix }, { path: '/' })
       res.statusCode = 302
       res.setHeader('location', '/custom-fields')
       res.end()
