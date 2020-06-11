@@ -59,7 +59,7 @@ const CustomFields = props => {
         <pre>{type}</pre>
       </td>
       <td>
-        <pre>{visibleInUI ? <span vd-icon="fa-check" class="vd-pl1 fa-fw fa fa-check"></span> : ''}</pre>
+        <pre>{visibleInUI ? <span vd-icon="fa-check" className="vd-pl1 fa-fw fa fa-check"></span> : ''}</pre>
       </td>
     </tr>
   })
