@@ -1,8 +1,22 @@
+import dynamic from 'next/dynamic'
 import cookies from 'next-cookies'
 import useSWR from 'swr'
 import { GraphQLClient } from 'graphql-request'
 
-import { Tab, Tabs, TabContent, SelectedTabProvider } from "@vendhq/shared-react";
+const Tab = dynamic(() => import('@vendhq/shared-react')
+  .then((module) => module.Tab), { ssr: false }
+)
+const Tabs = dynamic(() => import('@vendhq/shared-react')
+  .then((module) => module.Tabs), { ssr: false }
+)
+const TabContent = dynamic(() => import('@vendhq/shared-react')
+  .then((module) => module.TabContent), { ssr: false }
+)
+const SelectedTabProvider = dynamic(() => import('@vendhq/shared-react')
+  .then((module) => module.SelectedTabProvider), { ssr: false }
+)
+
+// import { Tab, Tabs, TabContent, SelectedTabProvider } from "@vendhq/shared-react";
 import { Spinner } from '../components/Spinner'
 
 const CustomFields = props => {
