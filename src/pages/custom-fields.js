@@ -1,4 +1,5 @@
 import cookies from 'next-cookies'
+import Link from 'next/link'
 import useSWR from 'swr'
 import { GraphQLClient } from 'graphql-request'
 
@@ -69,6 +70,8 @@ const CustomFields = props => {
       <section className="vd-section">
         <div className="vd-section-wrap">
           <h1 className="vd-header vd-header--page">Custom Fields</h1>
+          <Link href="/setup"><a className='vd-btn vd-btn--supplementary'>Setup</a></Link>
+
         </div>
       </section>
       <section className="vd-section">

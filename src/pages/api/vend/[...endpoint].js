@@ -26,15 +26,15 @@ const handler = async (req, res) => {
 
   const url = endpoint.join('/')
 
-  console.log(req.body);
-
-
   await vendApi({
     method: req.method,
     url: url,
     data: req.body
   })
-    .then(result => res.send(result.data.data))
+    .then(result => {
+      console.log(result.data);
+      res.send(result.data.data)
+    })
     .catch(error => {
       console.error(error.response);
       res.statusCode = error.response.status || 500
