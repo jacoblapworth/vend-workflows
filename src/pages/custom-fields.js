@@ -20,11 +20,25 @@ const CustomFields = props => {
       name
       title
       type
+      visibleInUI
     }
     saleFields: customFields(entity: SALE) {
       name
       title
       type
+      visibleInUI
+    }
+    productFields: customFields(entity: PRODUCT) {
+      name
+      title
+      type
+      visibleInUI
+    }
+    customerFields: customFields(entity: CUSTOMER) {
+      name
+      title
+      type
+      visibleInUI
     }
   }`
 
@@ -35,12 +49,17 @@ const CustomFields = props => {
   if (!data) return <Spinner />
 
   const rows = data.lineItemFields.map((lineItemField) => {
-    return <tr key={lineItemField.name}>
+    const { name, title, type, visibleInUI } = lineItemField
+
+    return <tr key={name}>
       <td>
-        {lineItemField.title}
+        {title}
       </td>
       <td>
-        <pre>{lineItemField.type}</pre>
+        <pre>{type}</pre>
+      </td>
+      <td>
+        <pre>{visibleInUI ? <span vd-icon="fa-check" class="vd-pl1 fa-fw fa fa-check"></span> : ''}</pre>
       </td>
     </tr>
   })
@@ -59,6 +78,7 @@ const CustomFields = props => {
               <tr>
                 <th>Name</th>
                 <th>Type</th>
+                <th>Visible</th>
               </tr>
             </thead>
             <tbody>
