@@ -17,10 +17,12 @@
   "dependencies": {
     "@vendhq/shared-react": "^1.12.0",
     "@vendhq/vend-styles": "^2.0.1",
+    "graphql-request": "^2.0.0",
     "next": "^9.4.0",
     "next-cookies": "^2.0.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "simple-oauth2": "^3.4.0"
+    "simple-oauth2": "^3.4.0",
+    "swr": "^0.2.2"
   }
 }
