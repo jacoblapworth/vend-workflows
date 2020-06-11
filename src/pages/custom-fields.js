@@ -5,7 +5,7 @@ import { GraphQLClient } from 'graphql-request'
 import { Spinner } from '../components/Spinner'
 
 const CustomFields = props => {
-  const { token, domainPrefix } = props.cookies.workflows
+  const { token } = props.cookies
 
   const API = '/api/vend/graphql'
 
