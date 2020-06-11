@@ -1,8 +1,11 @@
 import cookies from 'next-cookies'
 import useSWR from 'swr'
 import { GraphQLClient } from 'graphql-request'
+import loadable from '@loadable/component'
 
-import { Tab, Tabs, TabContent, SelectedTabProvider, ActionBar } from "@vendhq/shared-react";
+const Tab = loadable(() => import('./OtherComponent'))
+
+import { Tab, Tabs, TabContent, SelectedTabProvider } from "@vendhq/shared-react";
 import { Spinner } from '../components/Spinner'
 
 const CustomFields = props => {
