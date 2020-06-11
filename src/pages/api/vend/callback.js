@@ -1,6 +1,8 @@
 import auth, { config } from '../../../utils/oauth'
 import cookies from "../../../utils/cookies";
-import { serialize } from 'cookie'
+import jwt from 'jsonwebtoken'
+
+const PRIVATE_KEY = process.env.PRIVATE_KEY
 
 const handler = (req, res) => {
 
@@ -19,10 +21,14 @@ const handler = (req, res) => {
       const accessToken = auth(domainPrefix).accessToken.create(result)
       console.log(accessToken);
 
-      const tokenObject = accessToken.token
-      const token = tokenObject.access_token
+      const token = jwt.sign(accessToken.token, PRIVATE_KEY)
 
-      res.cookie('workflows', { token, domainPrefix }, { path: '/' })
+      const cookieConfig = {
+        SameSite: 'Strict',
+        path: '/'
+      }
+
+      res.cookie('token', token, cookieConfig)
       res.statusCode = 302
       res.setHeader('location', '/custom-fields')
       res.end()

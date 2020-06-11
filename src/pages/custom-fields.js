@@ -2,16 +2,12 @@ import cookies from 'next-cookies'
 import useSWR from 'swr'
 import { GraphQLClient } from 'graphql-request'
 
-// import { withAuthSync } from "../utils/auth";
 import { Spinner } from '../components/Spinner'
 
 const CustomFields = props => {
   const { token, domainPrefix } = props.cookies.workflows
-  const GRAPHQL_ENDPOINT = `https://${domainPrefix}.vendhq.com/api/graphql`
 
-  const PROD = process.env.NODE_ENV == 'production'
-
-  const API = PROD ? '' : 'https://cors-anywhere.herokuapp.com/' + GRAPHQL_ENDPOINT
+  const API = '/api/vend/graphql'
 
   const graphQLClient = new GraphQLClient(API, {
     headers: {

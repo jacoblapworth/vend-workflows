@@ -17,7 +17,9 @@
   "dependencies": {
     "@vendhq/shared-react": "^1.12.0",
     "@vendhq/vend-styles": "^2.0.1",
+    "axios": "^0.19.2",
     "graphql-request": "^2.0.0",
+    "jsonwebtoken": "^8.5.1",
     "next": "^9.4.0",
     "next-cookies": "^2.0.3",
     "react": "^16.13.1",
