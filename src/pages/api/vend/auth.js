@@ -1,11 +1,13 @@
-import oauth2, { config } from '../../../utils/oauth'
+import auth, { config } from '../../../utils/oauth'
 
 export default (req, res) => {
 
   /* Generate authorizationURI */
-  const authorizationURI = oauth2.authorizationCode.authorizeURL({
+  const authorizationURI = auth().authorizationCode.authorizeURL({
     redirect_uri: config.redirect_uri,
   })
 
-  res.writeHead(302, { location: authorizationURI }).send()
+  res.statusCode = 302
+  res.setHeader('location', authorizationURI)
+  res.end()
 }

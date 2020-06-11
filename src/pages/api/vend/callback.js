@@ -1,7 +1,7 @@
-import { config } from '../../../utils/oauth'
-import simpleOauth from 'simple-oauth2'
+import auth, { config } from '../../../utils/oauth'
+import cookies from "../../../utils/cookies";
 
-export default (req, res) => {
+const handler = (req, res) => {
 
   const code = req.query.code
   const domainPrefix = req.query.domain_prefix
@@ -12,38 +12,24 @@ export default (req, res) => {
     scope: '',
   };
 
-  const oauth2 = simpleOauth.create({
-    client: {
-      id: config.clientId,
-      secret: config.clientSecret
-    },
-    auth: {
-      authorizeHost: config.authorizeHost,
-      authorizePath: config.authorizePath,
-      tokenHost: `https://${domainPrefix}.vendhq.com`,
-      tokenPath: config.tokenPath,
-    }
-  })
-
-  oauth2.authorizationCode.getToken(tokenConfig)
+  auth(domainPrefix).authorizationCode.getToken(tokenConfig)
     .then((result) => {
 
-      console.log("Result:", result);
+      const accessToken = auth(domainPrefix).accessToken.create(result)
+      console.log(accessToken);
 
-      const token = oauth2.accessToken.create(result)
-      console.log('access_token', token.token)
-      const accessToken = token.token
-      res.setCookie({ token: accessToken })
-      return res.writeHead(302, { location: '/connected' }).send()
+      const tokenObject = accessToken.token
+      const token = tokenObject.token
+
+      res.cookie('token', accessToken)
+      res.statusCode = 302
+      res.setHeader('location', '/connected')
+      res.end()
     })
     .catch((error) => {
-      console.log('Access Token Error', error.message)
-      console.log(error)
-      return res.status(error.statusCode || 500).send({
-        error: {
-          message: error.message,
-          error: error.data.payload
-        }
-      })
+      console.error(error)
+      return res.status(error.statusCode || 500).send({ error })
     })
 }
+
+export default cookies(handler)
