@@ -1,5 +1,5 @@
 import auth, { config } from '../../../utils/oauth'
-import cookies from "../../../utils/cookies";
+import { withCookies } from "../../../utils/cookieMiddleware";
 import jwt from 'jsonwebtoken'
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY
@@ -29,7 +29,7 @@ const handler = (req, res) => {
         secure: process.env.NODE_ENV === 'production',
       }
 
-      res.cookie('token', token, cookieConfig)
+      res.setCookie('token', token, cookieConfig)
       res.statusCode = 302
       res.setHeader('location', '/custom-fields')
       res.end()
@@ -40,4 +40,4 @@ const handler = (req, res) => {
     })
 }
 
-export default cookies(handler)
+export default withCookies(handler)

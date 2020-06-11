@@ -3,7 +3,7 @@ import { serialize } from 'cookie'
 /**
  * This sets `cookie` on `res` object
  */
-const cookie = (res, name, value, options = {}) => {
+const setCookie = (res, name, value, options = {}) => {
   const stringValue =
     typeof value === 'object' ? 'j:' + JSON.stringify(value) : String(value)
 
@@ -17,10 +17,10 @@ const cookie = (res, name, value, options = {}) => {
 /**
  * Adds `cookie` function on `res.cookie` to set cookies for response
  */
-const cookies = (handler) => (req, res) => {
-  res.cookie = (name, value, options) => cookie(res, name, value, options)
+export const withCookies = (handler) => (req, res) => {
+  res.setCookie = (name, value, options) => setCookie(res, name, value, options)
 
   return handler(req, res)
 }
 
-export default cookies
+export default withCookies
