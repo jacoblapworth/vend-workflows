@@ -8,10 +8,10 @@ export function NavHeader() {
       </div>
       <style jsx>
         {`
-.vd-nav-item-label {
-  font-weight: 700;
-  font-size: 15px;
-}
+          .vd-nav-item-label {
+            font-weight: 700;
+            font-size: 15px;
+          }
         `}
       </style>
     </div>
