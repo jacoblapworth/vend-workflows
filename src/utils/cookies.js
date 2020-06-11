@@ -9,7 +9,6 @@ const cookie = (res, name, value, options = {}) => {
 
   if ('maxAge' in options) {
     options.expires = new Date(Date.now() + options.maxAge)
-    options.maxAge /= 1000
   }
 
   res.setHeader('Set-Cookie', serialize(name, String(stringValue), options))
