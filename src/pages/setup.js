@@ -1,9 +1,7 @@
 import axios from 'axios'
 
-const appUrl = process.env.URL || 'http://localhost:3000'
-
 const Setup = props => {
-
+  const appUrl = process.env.URL || 'https://workflows.now.sh'
   async function setupWorkflows(e) {
 
     try {
