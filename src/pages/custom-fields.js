@@ -1,8 +1,23 @@
+import dynamic from 'next/dynamic'
 import cookies from 'next-cookies'
 import Link from 'next/link'
 import useSWR from 'swr'
 import { GraphQLClient } from 'graphql-request'
 
+const Tab = dynamic(() => import('@vendhq/shared-react')
+  .then((module) => module.Tab), { ssr: false }
+)
+const Tabs = dynamic(() => import('@vendhq/shared-react')
+  .then((module) => module.Tabs), { ssr: false }
+)
+const TabContent = dynamic(() => import('@vendhq/shared-react')
+  .then((module) => module.TabContent), { ssr: false }
+)
+const SelectedTabProvider = dynamic(() => import('@vendhq/shared-react')
+  .then((module) => module.SelectedTabProvider), { ssr: false }
+)
+
+// import { Tab, Tabs, TabContent, SelectedTabProvider } from "@vendhq/shared-react";
 import { Spinner } from '../components/Spinner'
 
 const CustomFields = props => {
@@ -49,47 +64,77 @@ const CustomFields = props => {
   if (error) return <div>failed to load</div>
   if (!data) return <Spinner />
 
-  const rows = data.lineItemFields.map((lineItemField) => {
-    const { name, title, type, visibleInUI } = lineItemField
+  function Rows(props) {
+    const { customFields } = props
+    return customFields.map((lineItemField) => {
+      const { name, title, type, visibleInUI } = lineItemField
 
-    return <tr key={name}>
-      <td>
-        {title}
-      </td>
-      <td>
-        <pre>{type}</pre>
-      </td>
-      <td>
-        <pre>{visibleInUI ? <span vd-icon="fa-check" className="vd-pl1 fa-fw fa fa-check"></span> : ''}</pre>
-      </td>
-    </tr>
-  })
+      return <tr key={name}>
+        <td>
+          {title}
+        </td>
+        <td>
+          <pre>{type}</pre>
+        </td>
+        <td>
+          <pre>{visibleInUI ? <span vd-icon="fa-check" className="vd-pl1 fa-fw fa fa-check"></span> : ''}</pre>
+        </td>
+      </tr>
+    })
+  }
 
   return (
     <>
-      <section className="vd-section">
-        <div className="vd-section-wrap">
-          <h1 className="vd-header vd-header--page">Custom Fields</h1>
-          <Link href="/setup"><a className='vd-btn vd-btn--supplementary'>Setup</a></Link>
+      <SelectedTabProvider defaultTab="tab1">
+        <section className="vd-section">
+          <div className="vd-section-wrap">
+            <h1 className="vd-header vd-header--page">Custom Fields</h1>
+          </div>
+        </section>
+        <section className="vd-section vd-pb0 vd-pt0">
+          <div className="vd-section-wrap">
+            <Tabs modifier="large no-border" className="vd-mt3">
+              <Tab name="productFields">Products</Tab>
+              <Tab name="customerFields">Customers</Tab>
+              <Tab name="saleFields">Sales</Tab>
+              <Tab name="lineItemFields">Line Items</Tab>
+            </Tabs>
+          </div>
+        </section>
 
-        </div>
-      </section>
-      <section className="vd-section">
-        <div className="vd-section-wrap">
-          <table className="p-table p-table--no-wrap vd-table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Visible</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows}
-            </tbody>
-          </table>
-        </div>
-      </section>
+        <section className="vd-section vd-section--secondary">
+          <div className="vd-section-wrap">
+            <div className="vd-flex vd-flex--justify-between vd-flex--align-center">
+              <div>
+                Save extra metadata on items in Vend with Custom Fields.
+                </div>
+              <button className='vd-btn vd-btn--do'>Add Field</button>
+            </div>
+          </div>
+        </section>
+
+        <section className="vd-section">
+          <div className="vd-section-wrap">
+            <table className="p-table p-table--no-wrap vd-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Type</th>
+                  <th>Visible</th>
+                </tr>
+              </thead>
+              <tbody>
+                <TabContent name="productFields"><Rows customFields={data.productFields} /></TabContent>
+                <TabContent name="customerFields"><Rows customFields={data.customerFields} /></TabContent>
+                <TabContent name="saleFields"><Rows customFields={data.saleFields} /></TabContent>
+                <TabContent name="lineItemFields"><Rows customFields={data.lineItemFields} /></TabContent>
+              </tbody>
+            </table>
+          </div>
+
+        </section>
+      </SelectedTabProvider>
+
     </>
   )
 }
