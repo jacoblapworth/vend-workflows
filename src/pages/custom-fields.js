@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic'
 import cookies from 'next-cookies'
+import Link from 'next/link'
 import useSWR from 'swr'
 import { GraphQLClient } from 'graphql-request'
 
