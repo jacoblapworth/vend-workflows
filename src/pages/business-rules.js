@@ -1,6 +1,7 @@
-import Page from '../components/Page'
 import useSWR from 'swr'
 import axios from 'axios'
+
+import Page from '../components/Page'
 
 function BusinessRules() {
 

@@ -1,8 +1,11 @@
+import React, { useState } from 'react'
 import dynamic from 'next/dynamic'
 import cookies from 'next-cookies'
 import Link from 'next/link'
 import useSWR from 'swr'
 import { GraphQLClient } from 'graphql-request'
+
+import AddCustomField from "../components/customFields/addCustomField";
 
 const Tab = dynamic(() => import('@vendhq/shared-react')
   .then((module) => module.Tab), { ssr: false }
@@ -21,6 +24,16 @@ const SelectedTabProvider = dynamic(() => import('@vendhq/shared-react')
 import { Spinner } from '../components/Spinner'
 
 const CustomFields = props => {
+  const [modal, setModal] = useState(false)
+
+  function openModal(e) {
+    setModal(true)
+  }
+
+  function closeModal(e) {
+    setModal(false)
+  }
+
   const { token } = props.cookies
 
   const API = '/api/vend/graphql'
@@ -85,12 +98,13 @@ const CustomFields = props => {
 
   return (
     <>
-      <SelectedTabProvider defaultTab="tab1">
+      <SelectedTabProvider defaultTab="productFields">
         <section className="vd-section">
           <div className="vd-section-wrap">
             <h1 className="vd-header vd-header--page">Custom Fields</h1>
           </div>
         </section>
+        {modal && (<AddCustomField onClose={closeModal} />)}
         <section className="vd-section vd-pb0 vd-pt0">
           <div className="vd-section-wrap">
             <Tabs modifier="large no-border" className="vd-mt3">
@@ -108,7 +122,7 @@ const CustomFields = props => {
               <div>
                 Save extra metadata on items in Vend with Custom Fields.
                 </div>
-              <button className='vd-btn vd-btn--do'>Add Field</button>
+              <button className='vd-btn vd-btn--do' onClick={openModal}>Add Field</button>
             </div>
           </div>
         </section>
