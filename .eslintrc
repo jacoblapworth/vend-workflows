@@ -22,8 +22,9 @@
         "singleQuote": true
       }
     ],
+    "react/jsx-uses-react": 1,
     "react/react-in-jsx-scope": "off",
-    "react/prop-types": "skipUndeclared"
+    "react/prop-types": "off"
   },
   "parser": "babel-eslint",
   "parserOptions": {
