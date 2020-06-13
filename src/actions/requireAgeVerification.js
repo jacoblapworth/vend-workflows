@@ -1,22 +1,22 @@
-import { WORKFLOW_ACTIONS } from "../constants";
-import { getValueForCustomField } from "../utils/customFields";
+import { WORKFLOW_ACTIONS } from '../constants'
+import { getValueForCustomField } from '../utils/customFields'
 
 export function requireAgeVerification(lineItem, ctx) {
   let VERIFIED = false
   try {
-    VERIFIED = getValueForCustomField(ctx.sale.custom_fields, 'verified');
+    VERIFIED = getValueForCustomField(ctx.sale.custom_fields, 'verified')
   } catch (error) {
     console.warn(error)
   }
 
   if (!VERIFIED) {
-    const today = new Date();
-    const over18Date = new Date(today.setFullYear(today.getFullYear() - 18));
-    const { date_of_birth } = ctx.customer;
+    const today = new Date()
+    const over18Date = new Date(today.setFullYear(today.getFullYear() - 18))
+    const { date_of_birth } = ctx.customer
 
     if (date_of_birth) {
-      const dob = new Date(date_of_birth);
-      const isOver18 = dob < over18Date;
+      const dob = new Date(date_of_birth)
+      const isOver18 = dob < over18Date
 
       if (isOver18) {
         const action = {
@@ -24,32 +24,34 @@ export function requireAgeVerification(lineItem, ctx) {
           entity: 'sale',
           custom_field_name: 'verified',
           custom_field_value: true,
-        };
+        }
 
-        return action;
+        return action
       }
       const action = {
         type: WORKFLOW_ACTIONS.STOP,
-        title: '🔞 You can\'t sell alcohol to someone underage.',
+        title: "🔞 You can't sell alcohol to someone underage.",
         message: 'This customer is younger than 18.',
         dismiss_label: 'Got It',
-      };
+      }
 
-      return action;
+      return action
     }
 
-    const ddmmyy = `${over18Date.getDate()}/${over18Date.getMonth() + 1}/${over18Date.getFullYear()}`;
+    const ddmmyy = `${over18Date.getDate()}/${
+      over18Date.getMonth() + 1
+    }/${over18Date.getFullYear()}`
 
     const action = {
       type: WORKFLOW_ACTIONS.REQUIRE_CUSTOM_FIELD,
-      title: '🔞 Please check the customer\'s ID.',
+      title: "🔞 Please check the customer's ID.",
       message: `The customer needs to be 18 years or older. \nBirthday before: ${ddmmyy}`,
       entity: 'sale',
       custom_field_name: 'verified',
-    };
+    }
 
-    return action;
+    return action
   }
 
-  return null;
+  return null
 }

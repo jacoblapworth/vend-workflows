@@ -1,4 +1,4 @@
-import { WORKFLOW_ACTIONS } from "../constants";
+import { WORKFLOW_ACTIONS } from '../constants'
 
 export function confirmAction(lineItem) {
   const action = {
@@ -7,7 +7,7 @@ export function confirmAction(lineItem) {
     message: 'Please confirm, before taking payment.',
     dismiss_label: 'Cancel',
     confirm_label: 'Continue',
-  };
+  }
 
-  return action;
+  return action
 }

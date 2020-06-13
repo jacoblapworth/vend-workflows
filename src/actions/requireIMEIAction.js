@@ -1,12 +1,12 @@
-import { WORKFLOW_ACTIONS } from "../constants";
-import { getValueForCustomField } from "../utils/customFields"
+import { WORKFLOW_ACTIONS } from '../constants'
+import { getValueForCustomField } from '../utils/customFields'
 
 export function requireIMEIAction(lineItem) {
   let SERIAL = null
   try {
-    SERIAL = getValueForCustomField(lineItem.custom_fields, 'serial');
+    SERIAL = getValueForCustomField(lineItem.custom_fields, 'serial')
   } catch (error) {
-    console.warn(error);
+    console.warn(error)
   }
 
   const action = {
@@ -16,7 +16,7 @@ export function requireIMEIAction(lineItem) {
     entity: 'line_item',
     entity_id: lineItem.id,
     custom_field_name: 'serial',
-  };
+  }
 
   const invalidAction = {
     type: WORKFLOW_ACTIONS.REQUIRE_CUSTOM_FIELD,
@@ -25,15 +25,16 @@ export function requireIMEIAction(lineItem) {
     entity: 'line_item',
     entity_id: lineItem.id,
     custom_field_name: 'serial',
-  };
-
-  if (!SERIAL) {
-    console.log('Serial required.');
-    return action;
-  } if (!SERIAL.match(/abc/)) {
-    console.log('Serial is invalid: ', SERIAL);
-    return invalidAction;
   }
 
-  return null;
+  if (!SERIAL) {
+    console.log('Serial required.')
+    return action
+  }
+  if (!SERIAL.match(/abc/)) {
+    console.log('Serial is invalid: ', SERIAL)
+    return invalidAction
+  }
+
+  return null
 }

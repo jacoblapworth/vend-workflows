@@ -1,5 +1,5 @@
-import { WORKFLOW_ACTIONS } from "../constants";
-import { getValueForCustomField } from "../utils/customFields";
+import { WORKFLOW_ACTIONS } from '../constants'
+import { getValueForCustomField } from '../utils/customFields'
 
 export function formAction(lineItem) {
   const CUSTOM_FIELD_NAMES = [
@@ -10,12 +10,17 @@ export function formAction(lineItem) {
 
   let MECHANIC = null
   try {
-    MECHANIC = getValueForCustomField(lineItem.custom_fields, CUSTOM_FIELD_NAMES[0]);
+    MECHANIC = getValueForCustomField(
+      lineItem.custom_fields,
+      CUSTOM_FIELD_NAMES[0]
+    )
   } catch (error) {
-    console.warn(error);
+    console.warn(error)
   }
 
-  const required_custom_fields = CUSTOM_FIELD_NAMES.map(name => { return { 'name': name } })
+  const required_custom_fields = CUSTOM_FIELD_NAMES.map((name) => {
+    return { name: name }
+  })
 
   const action = {
     type: WORKFLOW_ACTIONS.REQUIRE_CUSTOM_FIELDS,
@@ -23,12 +28,12 @@ export function formAction(lineItem) {
     message: 'Please enter the job details for this repair:',
     entity: 'line_item',
     entity_id: lineItem.id,
-    required_custom_fields
-  };
-
-  if (!MECHANIC) {
-    return action;
+    required_custom_fields,
   }
 
-  return null;
+  if (!MECHANIC) {
+    return action
+  }
+
+  return null
 }

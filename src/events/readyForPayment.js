@@ -8,11 +8,14 @@ function lineItemActions(lineItem, ctx) {
   */
 
   if (!lineItem.product || !lineItem.product.custom_fields) {
-    throw new Error("No custom fields for this product.")
+    throw new Error('No custom fields for this product.')
   }
 
   const CUSTOM_FIELD = 'demo_rule'
-  const RULE = getValueForCustomField(lineItem.product.custom_fields, CUSTOM_FIELD)
+  const RULE = getValueForCustomField(
+    lineItem.product.custom_fields,
+    CUSTOM_FIELD
+  )
 
   if (typeof Actions[RULE] === 'undefined') {
     throw new Error(`No action with the name: "${RULE}"`)
@@ -20,30 +23,29 @@ function lineItemActions(lineItem, ctx) {
 
   const ruleAction = Actions[RULE](lineItem, ctx)
 
-  return ruleAction;
+  return ruleAction
 }
 
 export default function readyForPayment(event) {
-  const lineItems = event.sale.line_items;
+  const lineItems = event.sale.line_items
 
-  const actions = lineItems.flatMap((lineItem, i) => {
-    console.log(`Line_item: ${i}`, lineItem);
+  const actions = lineItems
+    .flatMap((lineItem, i) => {
+      console.log(`Line_item: ${i}`, lineItem)
 
-    // Returns
-    if (lineItem.quantity < 0) {
-      return Actions.itemReturn(lineItem, event);
-    }
+      // Returns
+      if (lineItem.quantity < 0) {
+        return Actions.itemReturn(lineItem, event)
+      }
 
-    // Line-item actions
-    try {
-      return lineItemActions(lineItem, event);
-    } catch (error) {
-      console.warn(error)
-    }
+      // Line-item actions
+      try {
+        return lineItemActions(lineItem, event)
+      } catch (error) {
+        console.warn(error)
+      }
+    })
+    .filter((item) => !!item)
 
-  }).filter((item) => !!item);
-
-  return { actions };
+  return { actions }
 }
-
-

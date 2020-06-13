@@ -31,8 +31,8 @@ const Switch = React.forwardRef((props, ref) => (
 export default function AddCustomField(props) {
   const { onClose } = props
 
-  const { register, handleSubmit, watch, errors } = useForm();
-  const onSubmit = data => console.log(data);
+  const { register, handleSubmit, watch, errors } = useForm()
+  const onSubmit = (data) => console.log(data)
 
   return (
     <Dialog

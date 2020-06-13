@@ -1,26 +1,27 @@
-import { WORKFLOW_ACTIONS } from "../constants";
-import { getValueForCustomField } from "../utils/customFields";
+import { WORKFLOW_ACTIONS } from '../constants'
+import { getValueForCustomField } from '../utils/customFields'
 
 export function booleanAction(lineItem) {
   let VERIFIED = false
   try {
-    VERIFIED = getValueForCustomField(lineItem.custom_fields, 'Boolean');
+    VERIFIED = getValueForCustomField(lineItem.custom_fields, 'Boolean')
   } catch (error) {
-    console.warn(error);
+    console.warn(error)
   }
 
   const action = {
     type: WORKFLOW_ACTIONS.REQUIRE_CUSTOM_FIELD,
     title: 'Please tick the checkbox.',
-    message: 'This line_item will have a custom field "boolean" set to the value:',
+    message:
+      'This line_item will have a custom field "boolean" set to the value:',
     entity: 'line_item',
     entity_id: lineItem.id,
     custom_field_name: 'Boolean',
-  };
-
-  if (!VERIFIED) {
-    return action;
   }
 
-  return null;
+  if (!VERIFIED) {
+    return action
+  }
+
+  return null
 }
