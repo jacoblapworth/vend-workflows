@@ -31,13 +31,13 @@ export default function authWithDomain(domain = null) {
   return authInstance({
     client: {
       id: config.clientId,
-      secret: config.clientSecret
+      secret: config.clientSecret,
     },
     auth: {
       authorizeHost: config.authorizeHost,
       authorizePath: config.authorizePath,
       tokenHost: domain ? `https://${domain}.vendhq.com` : config.tokenHost,
       tokenPath: config.tokenPath,
-    }
+    },
   })
 }

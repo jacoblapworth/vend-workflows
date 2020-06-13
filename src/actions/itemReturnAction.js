@@ -1,13 +1,16 @@
-import { WORKFLOW_ACTIONS } from "../constants";
-import { getValueForCustomField } from "../utils/customFields";
+import { WORKFLOW_ACTIONS } from '../constants'
+import { getValueForCustomField } from '../utils/customFields'
 
-export function itemReturn(lineItem, ctx) {
-  const CUSTOM_FIELD_NAME = 'return-reason';
+export function itemReturn(lineItem) {
+  const CUSTOM_FIELD_NAME = 'return-reason'
   let RETURN_REASON = null
   try {
-    RETURN_REASON = getValueForCustomField(lineItem.custom_fields, CUSTOM_FIELD_NAME);
+    RETURN_REASON = getValueForCustomField(
+      lineItem.custom_fields,
+      CUSTOM_FIELD_NAME
+    )
   } catch (error) {
-    console.warn(error);
+    console.warn(error)
   }
 
   if (!RETURN_REASON) {
@@ -32,8 +35,8 @@ export function itemReturn(lineItem, ctx) {
           title: 'Other',
         },
       ],
-    };
-    return action;
+    }
+    return action
   }
 
   if (RETURN_REASON === 'other') {
@@ -43,7 +46,7 @@ export function itemReturn(lineItem, ctx) {
       entity_id: lineItem.id,
       custom_field_name: CUSTOM_FIELD_NAME,
       custom_field_value: '',
-    };
+    }
     const action = {
       type: WORKFLOW_ACTIONS.REQUIRE_CUSTOM_FIELD,
       title: '↪️ Why is this item being returned?',
@@ -51,10 +54,10 @@ export function itemReturn(lineItem, ctx) {
       entity: 'line_item',
       entity_id: lineItem.id,
       custom_field_name: CUSTOM_FIELD_NAME,
-    };
+    }
 
-    return [clearReason, action];
+    return [clearReason, action]
   }
 
-  return null;
+  return null
 }

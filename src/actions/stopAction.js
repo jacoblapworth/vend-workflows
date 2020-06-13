@@ -1,12 +1,12 @@
-import { WORKFLOW_ACTIONS } from "../constants";
+import { WORKFLOW_ACTIONS } from '../constants'
 
-export function stopAction(lineItem) {
+export function stopAction() {
   const action = {
     type: WORKFLOW_ACTIONS.STOP,
     title: 'Stop!',
-    message: 'You can\'t make this sale.',
+    message: "You can't make this sale.",
     dismiss_label: 'Got It',
-  };
+  }
 
-  return action;
+  return action
 }

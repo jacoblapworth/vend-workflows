@@ -1,11 +1,10 @@
 import auth, { config } from '../../../utils/oauth'
-import { withCookies } from "../../../utils/cookieMiddleware";
+import { withCookies } from '../../../utils/cookieMiddleware'
 import jwt from 'jsonwebtoken'
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY
 
 const handler = (req, res) => {
-
   const code = req.query.code
   const domainPrefix = req.query.domain_prefix
 
@@ -13,11 +12,11 @@ const handler = (req, res) => {
     code: code,
     redirect_uri: config.redirect_uri,
     scope: '',
-  };
+  }
 
-  auth(domainPrefix).authorizationCode.getToken(tokenConfig)
+  auth(domainPrefix)
+    .authorizationCode.getToken(tokenConfig)
     .then((result) => {
-
       const accessToken = auth(domainPrefix).accessToken.create(result)
       const token = jwt.sign(accessToken.token, PRIVATE_KEY)
 
@@ -36,7 +35,10 @@ const handler = (req, res) => {
     })
     .catch((error) => {
       console.error(error)
-      return res.status(error.statusCode || 500).send({ error }).end()
+      return res
+        .status(error.statusCode || 500)
+        .send({ error })
+        .end()
     })
 }
 
