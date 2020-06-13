@@ -162,7 +162,7 @@ const CustomFields = (props) => {
   )
 }
 
-export async function getServerSideProps(context) {
+export function getServerSideProps(context) {
   return {
     props: {
       cookies: cookies(context),
