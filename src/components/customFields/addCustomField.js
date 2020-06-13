@@ -24,7 +24,7 @@ export default function AddCustomField(props) {
               name="customFieldEntity"
               label="Entity Type"
               innerRef={register({ required: true })}
-              error={errors.customFieldEntity}
+              errors={errors}
             >
               <option value="product">Product</option>
               <option value="sale">Sale</option>
@@ -33,16 +33,27 @@ export default function AddCustomField(props) {
             </Select>
             <InputField
               name="customFieldName"
+              placeholder="demo_"
               label="Name"
-              innerRef={register({ required: true })}
-              error={errors.customFieldName}
+              innerRef={register({ required: 'Please enter a name.' })}
+              errors={errors}
             />
             <InputField
               name="customFieldTitle"
               label="Title"
-              innerRef={register({ required: true })}
-              error={errors.customFieldTitle}
+              innerRef={register({ required: 'Please enter a title.' })}
+              errors={errors}
             />
+            <Select
+              name="customFieldType"
+              label="Field Type"
+              innerRef={register({ required: true })}
+              errors={errors}
+            >
+              <option value="string">String</option>
+              <option value="number">Number</option>
+              <option value="boolean">Boolean</option>
+            </Select>
             <div className="vd-field">
               <Switch name="customFieldVisible" ref={register} />
               <Label className="vd-ml2" name="customFieldVisible">
