@@ -4,7 +4,7 @@ import { Label } from './Label'
 import { ErrorMessage } from './SharedReact'
 
 export function InputField(props) {
-  const { name, label, innerRef, errors, ...attributes } = props
+  const { name, label, innerRef, errors, prefix, ...attributes } = props
   return (
     <div className="vd-field">
       <Label name={name}>{label}</Label>
@@ -17,6 +17,9 @@ export function InputField(props) {
           ref={innerRef}
           {...attributes}
         ></input>
+        <div className="vd-input-icon vd-input-icon--left vd-input-symbol">
+          {prefix}
+        </div>
       </div>
       <Error errors={errors} name={name}>
         {({ message }) => <ErrorMessage>{message}</ErrorMessage>}
