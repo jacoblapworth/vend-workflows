@@ -3,6 +3,7 @@ import cookies from 'next-cookies'
 import useSWR from 'swr'
 import { GraphQLClient } from 'graphql-request'
 
+import { getCustomFields } from '../graphql/queries/CustomFields'
 import AddCustomField from '../components/customFields/addCustomField'
 
 import {
@@ -36,38 +37,9 @@ const CustomFields = (props) => {
     },
   })
 
-  const query = /* GraphQL */ `
-    {
-      lineItemFields: customFields(entity: LINE_ITEM) {
-        name
-        title
-        type
-        visibleInUI
-      }
-      saleFields: customFields(entity: SALE) {
-        name
-        title
-        type
-        visibleInUI
-      }
-      productFields: customFields(entity: PRODUCT) {
-        name
-        title
-        type
-        visibleInUI
-      }
-      customerFields: customFields(entity: CUSTOMER) {
-        name
-        title
-        type
-        visibleInUI
-      }
-    }
-  `
-
   const fetcher = (query) => graphQLClient.request(query)
 
-  const { data, error } = useSWR(query, fetcher)
+  const { data, error } = useSWR(getCustomFields, fetcher)
   if (error) return <div>failed to load</div>
   if (!data) return <Spinner />
 
