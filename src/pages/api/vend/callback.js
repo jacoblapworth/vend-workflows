@@ -20,11 +20,13 @@ const handler = (req, res) => {
       const accessToken = auth(domainPrefix).accessToken.create(result)
       const token = jwt.sign(accessToken.token, PRIVATE_KEY)
 
+      console.log(accessToken)
+
       const cookieConfig = {
         sameSite: 'Strict',
         path: '/',
         maxAge: accessToken.token.expires_in,
-        httpOnly: true,
+        httpOnly: false,
         secure: process.env.NODE_ENV === 'production',
       }
 
