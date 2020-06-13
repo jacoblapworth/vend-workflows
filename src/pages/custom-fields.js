@@ -5,20 +5,16 @@ import Link from 'next/link'
 import useSWR from 'swr'
 import { GraphQLClient } from 'graphql-request'
 
-import AddCustomField from "../components/customFields/addCustomField";
+import AddCustomField from '../components/customFields/addCustomField'
 
-const Tab = dynamic(() => import('@vendhq/shared-react')
-  .then((module) => module.Tab), { ssr: false }
-)
-const Tabs = dynamic(() => import('@vendhq/shared-react')
-  .then((module) => module.Tabs), { ssr: false }
-)
-const TabContent = dynamic(() => import('@vendhq/shared-react')
-  .then((module) => module.TabContent), { ssr: false }
-)
-const SelectedTabProvider = dynamic(() => import('@vendhq/shared-react')
-  .then((module) => module.SelectedTabProvider), { ssr: false }
-)
+import {
+  Button,
+  Tab,
+  Tabs,
+  TabContent,
+  SelectedTabProvider,
+  ActionBar,
+} from '../components/SharedReact'
 
 // import { Tab, Tabs, TabContent, SelectedTabProvider } from "@vendhq/shared-react";
 import { Spinner } from '../components/Spinner'

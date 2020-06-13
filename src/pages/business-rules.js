@@ -1,7 +1,7 @@
 import useSWR from 'swr'
 import axios from 'axios'
 
-import Page from '../components/Page'
+import Section from '../components/Section'
 
 function BusinessRules() {
   const fetcher = (query) => axios.get(query)
