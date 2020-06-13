@@ -12,7 +12,7 @@ function BusinessRules() {
   const remoteRules = data.data.map((rule) => {
     const date = new Date(rule.created_at)
     return (
-      <div>
+      <div key={rule.id}>
         <div>{rule.url}</div>
         <pre>{rule.id}</pre>
         {date.toString()}
