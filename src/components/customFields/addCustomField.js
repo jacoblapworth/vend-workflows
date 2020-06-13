@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { GraphQLClient } from 'graphql-request'
 
 import { Dialog, Button } from '../SharedReact'
 import { Switch } from '../Switch'
@@ -9,9 +10,53 @@ import { Label } from '../Label'
 
 export default function AddCustomField(props) {
   const { onClose } = props
+  const [isLoading, setIsLoading] = useState(false)
 
-  const { register, handleSubmit, errors } = useForm()
-  const onSubmit = (data) => console.log(data)
+  const API = '/api/vend/graphql'
+
+  const graphQLClient = new GraphQLClient(API, {
+    // headers: {
+    //   Authorization: `Bearer ${token}`,
+    // },
+  })
+
+  const query = /* GraphQL */ `
+    mutation createCustomField(
+      $entity: CustomFieldEntity!
+      $name: String!
+      $title: String!
+      $type: CustomFieldType!
+      $visibleInUI: Boolean!
+    ) {
+      createCustomField(
+        entity: $entity
+        name: $name
+        title: $title
+        type: $type
+        visibleInUI: $visibleInUI
+      ) {
+        id
+      }
+    }
+  `
+
+  const { register, handleSubmit, errors, setError } = useForm()
+  const onSubmit = async (customField) => {
+    setIsLoading(true)
+    const name = 'demo_' + customField.name
+    const variables = {
+      ...customField,
+      name,
+    }
+    const data = await graphQLClient
+      .request(query, variables)
+      .catch((error) => {
+        console.error("Couldn't create custom field.", error)
+        setError('name', 'notMatch', 'Please enter a different name.')
+      })
+    setIsLoading(false)
+    data && onClose()
+  }
 
   return (
     <Dialog
@@ -21,18 +66,18 @@ export default function AddCustomField(props) {
         <>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Select
-              name="customFieldEntity"
+              name="entity"
               label="Entity Type"
               innerRef={register({ required: true })}
               errors={errors}
             >
-              <option value="product">Product</option>
-              <option value="sale">Sale</option>
-              <option value="line_item">Line Item</option>
-              <option value="customer">Customer</option>
+              <option value="PRODUCT">Product</option>
+              <option value="SALE">Sale</option>
+              <option value="LINE_ITEM">Line Item</option>
+              <option value="CUSTOMER">Customer</option>
             </Select>
             <InputField
-              name="customFieldName"
+              name="name"
               label="Name"
               prefix="demo_"
               style={{
@@ -42,25 +87,25 @@ export default function AddCustomField(props) {
               errors={errors}
             />
             <InputField
-              name="customFieldTitle"
+              name="title"
               label="Title"
               placeholder="Enter a title"
               innerRef={register({ required: 'Please enter a title.' })}
               errors={errors}
             />
             <Select
-              name="customFieldType"
+              name="type"
               label="Field Type"
               innerRef={register({ required: true })}
               errors={errors}
             >
-              <option value="string">String</option>
-              <option value="number">Number</option>
-              <option value="boolean">Boolean</option>
+              <option value="STRING">String</option>
+              <option value="NUMBER">Number</option>
+              <option value="BOOLEAN">Boolean</option>
             </Select>
             <div className="vd-field">
-              <Switch name="customFieldVisible" ref={register} />
-              <Label className="vd-ml2" name="customFieldVisible">
+              <Switch name="visibleInUI" ref={register} />
+              <Label className="vd-ml2" name="visibleInUI">
                 Visible in UI
               </Label>
             </div>
@@ -72,7 +117,9 @@ export default function AddCustomField(props) {
           <Button onClick={onClose} variant="supplementary">
             Cancel
           </Button>
-          <Button onClick={handleSubmit(onSubmit)}>Add</Button>
+          <Button onClick={handleSubmit(onSubmit)} loading={isLoading}>
+            Add
+          </Button>
         </div>
       }
       onClose={onClose}
