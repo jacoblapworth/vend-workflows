@@ -1,6 +1,6 @@
 import { WORKFLOW_ACTIONS } from '../constants'
 
-export function confirmAction(lineItem) {
+export function confirmAction() {
   const action = {
     type: WORKFLOW_ACTIONS.CONFIRM,
     title: 'Wait!',

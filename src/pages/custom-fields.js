@@ -1,19 +1,15 @@
 import React, { useState } from 'react'
-import dynamic from 'next/dynamic'
 import cookies from 'next-cookies'
-import Link from 'next/link'
 import useSWR from 'swr'
 import { GraphQLClient } from 'graphql-request'
 
 import AddCustomField from '../components/customFields/addCustomField'
 
 import {
-  Button,
   Tab,
   Tabs,
   TabContent,
   SelectedTabProvider,
-  ActionBar,
 } from '../components/SharedReact'
 
 // import { Tab, Tabs, TabContent, SelectedTabProvider } from "@vendhq/shared-react";
@@ -22,11 +18,11 @@ import { Spinner } from '../components/Spinner'
 const CustomFields = (props) => {
   const [modal, setModal] = useState(false)
 
-  function openModal(e) {
+  function openModal() {
     setModal(true)
   }
 
-  function closeModal(e) {
+  function closeModal() {
     setModal(false)
   }
 
@@ -88,13 +84,11 @@ const CustomFields = (props) => {
           </td>
           <td>
             <pre>
-              {visibleInUI ? (
+              {visibleInUI && (
                 <span
                   vd-icon="fa-check"
                   className="vd-pl1 fa-fw fa fa-check"
                 ></span>
-              ) : (
-                ''
               )}
             </pre>
           </td>

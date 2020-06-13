@@ -1,7 +1,7 @@
 import { WORKFLOW_ACTIONS } from '../constants'
 import { getValueForCustomField } from '../utils/customFields'
 
-export function tourTimeAction(lineItem, ctx) {
+export function tourTimeAction(lineItem) {
   const CUSTOM_FIELD_NAME = 'tour-datetime'
   let TOUR_DATETIME = null
   try {
@@ -14,8 +14,6 @@ export function tourTimeAction(lineItem, ctx) {
   }
 
   if (!TOUR_DATETIME) {
-    const now = new Date()
-
     const action = {
       type: WORKFLOW_ACTIONS.REQUIRE_CUSTOM_FIELD,
       title: '📆 Choose a tour time.',

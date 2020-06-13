@@ -1,6 +1,6 @@
 import { WORKFLOW_ACTIONS } from '../constants'
 
-export function stopAction(lineItem) {
+export function stopAction() {
   const action = {
     type: WORKFLOW_ACTIONS.STOP,
     title: 'Stop!',

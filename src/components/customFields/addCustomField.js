@@ -1,5 +1,5 @@
 import React from 'react'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 
 import { Dialog, Button } from '../SharedReact'
 import { Switch } from '../Switch'
@@ -10,7 +10,7 @@ import { Label } from '../Label'
 export default function AddCustomField(props) {
   const { onClose } = props
 
-  const { register, handleSubmit, watch, errors } = useForm()
+  const { register, handleSubmit, errors } = useForm()
   const onSubmit = (data) => console.log(data)
 
   return (

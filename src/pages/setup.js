@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-const Setup = (props) => {
+const Setup = () => {
   const appUrl = process.env.URL || 'https://workflows.now.sh'
-  async function setupWorkflows(e) {
+  async function setupWorkflows() {
     try {
       let remoteRule = await axios
         .get('api/vend/2.0/workflows/remote_rules')

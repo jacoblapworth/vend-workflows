@@ -1,7 +1,7 @@
 import { WORKFLOW_ACTIONS } from '../constants'
 import { getValueForCustomField } from '../utils/customFields'
 
-export function itemReturn(lineItem, ctx) {
+export function itemReturn(lineItem) {
   const CUSTOM_FIELD_NAME = 'return-reason'
   let RETURN_REASON = null
   try {
