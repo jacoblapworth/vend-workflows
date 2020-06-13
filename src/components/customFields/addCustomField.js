@@ -33,14 +33,18 @@ export default function AddCustomField(props) {
             </Select>
             <InputField
               name="customFieldName"
-              placeholder="demo_"
               label="Name"
+              prefix="demo_"
+              style={{
+                paddingLeft: '6.2ch',
+              }}
               innerRef={register({ required: 'Please enter a name.' })}
               errors={errors}
             />
             <InputField
               name="customFieldTitle"
               label="Title"
+              placeholder="Enter a title"
               innerRef={register({ required: 'Please enter a title.' })}
               errors={errors}
             />
