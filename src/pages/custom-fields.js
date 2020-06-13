@@ -162,10 +162,11 @@ const CustomFields = (props) => {
   )
 }
 
-CustomFields.getInitialProps = (ctx) => {
+export async function getServerSideProps(context) {
   return {
-    cookies: cookies(ctx),
+    props: {
+      cookies: cookies(context),
+    },
   }
 }
-
 export default CustomFields
