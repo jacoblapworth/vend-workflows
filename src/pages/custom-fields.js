@@ -13,7 +13,6 @@ import {
   SelectedTabProvider,
 } from '../components/SharedReact'
 
-// import { Tab, Tabs, TabContent, SelectedTabProvider } from "@vendhq/shared-react";
 import { Spinner } from '../components/Spinner'
 
 const CustomFields = (props) => {
