@@ -1,25 +1,31 @@
-export function SideBar(props) {
+import Link from 'next/link'
+import {
+  SideNav,
+  SideNavContent,
+  SideNavDrawer,
+  NavItem,
+  NavItemAction,
+  A,
+} from './style'
+
+export function SideBar() {
   return (
-    <div className="react-sidenav nv-sidenav vd-sidebar nv-sidenav-content">
-      <div className="vd-sidebar-drawer">
-        <div className="vd-nav-item vd-nav-item--active">
-          <a
-            className="vd-nav-item-action"
-            href="https://thetaxman.vendhq.com/webregister"
-          >
-            <div className="vd-nav-item-label">Business Rules</div>
-          </a>
-        </div>
-        <div className="vd-nav-item">
-          <a
-            className="vd-nav-item-action"
-            href="https://thetaxman.vendhq.com/webregister"
-          >
-            <div className="vd-nav-item-label">Custom Fields</div>
-          </a>
-        </div>
-      </div>
-    </div>
+    <SideNav>
+      <SideNavContent>
+        <SideNavDrawer>
+          <NavItem>
+            <Link href="/business-rules">
+              <A>Business Rules</A>
+            </Link>
+          </NavItem>
+          <NavItem>
+            <Link href="/custom-fields">
+              <A>Custom Fields</A>
+            </Link>
+          </NavItem>
+        </SideNavDrawer>
+      </SideNavContent>
+    </SideNav>
   )
 }
 

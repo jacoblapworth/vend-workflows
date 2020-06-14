@@ -10,9 +10,11 @@ export default function Workflows({ Component, pageProps }) {
   return (
     <>
       <NavHeader />
-      <SideBar />
-      <div className="vd-main-content-container vd-main-content-inner-container">
-        <Component {...pageProps} />
+      <div className="vd-body">
+        <SideBar />
+        <div className="vd-main-content-container vd-main-content-inner-container">
+          <Component {...pageProps} />
+        </div>
       </div>
     </>
   )
