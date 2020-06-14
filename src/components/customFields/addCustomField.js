@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { GraphQLClient } from 'graphql-request'
 
+import { createCustomField } from '../../graphql/mutations/CustomFields'
 import { Dialog, Button } from '../SharedReact'
 import { Switch } from '../Switch'
 import { InputField } from '../InputField'
@@ -20,26 +21,6 @@ export default function AddCustomField(props) {
     // },
   })
 
-  const query = /* GraphQL */ `
-    mutation createCustomField(
-      $entity: CustomFieldEntity!
-      $name: String!
-      $title: String!
-      $type: CustomFieldType!
-      $visibleInUI: Boolean!
-    ) {
-      createCustomField(
-        entity: $entity
-        name: $name
-        title: $title
-        type: $type
-        visibleInUI: $visibleInUI
-      ) {
-        id
-      }
-    }
-  `
-
   const { register, handleSubmit, errors, setError } = useForm()
   const onSubmit = async (customField) => {
     setIsLoading(true)
@@ -49,7 +30,7 @@ export default function AddCustomField(props) {
       name,
     }
     const data = await graphQLClient
-      .request(query, variables)
+      .request(createCustomField, variables)
       .catch((error) => {
         console.error("Couldn't create custom field.", error)
         setError('name', 'notMatch', 'Please enter a different name.')

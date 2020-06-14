@@ -21,6 +21,7 @@
     "axios": "^0.19.2",
     "babel-eslint": "^10.1.0",
     "classnames": "^2.2.6",
+    "date-fns": "^2.14.0",
     "graphql-request": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
     "next": "^9.4.0",
@@ -48,6 +49,6 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx}": "eslint --cache --fix"
+    "*.{js,jsx,json}": "eslint --cache --fix"
   }
 }
