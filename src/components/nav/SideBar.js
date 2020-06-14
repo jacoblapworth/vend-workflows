@@ -1,12 +1,5 @@
 import Link from 'next/link'
-import {
-  SideNav,
-  SideNavContent,
-  SideNavDrawer,
-  NavItem,
-  NavItemAction,
-  A,
-} from './style'
+import { SideNav, SideNavContent, SideNavDrawer, NavItem, A } from './style'
 
 export function SideBar() {
   return (

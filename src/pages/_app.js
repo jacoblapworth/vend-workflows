@@ -5,8 +5,6 @@ import { SideBar } from '../components/nav/SideBar'
 
 // This default export is required in a new `pages/_app.js` file.
 export default function Workflows({ Component, pageProps }) {
-  console.log('test', pageProps)
-
   return (
     <>
       <NavHeader />
