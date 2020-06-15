@@ -1,4 +1,6 @@
 import axios from 'axios'
+import Section from '../components/Section'
+import { Button } from '../components/SharedReact'
 
 const Setup = () => {
   const appUrl = process.env.URL || 'https://workflows.now.sh'
@@ -39,13 +41,12 @@ const Setup = () => {
 
   return (
     <>
-      <div className="vd-section">
-        <h1>Setup</h1>
-
-        <button className="vd-btn vd-btn--do" onClick={setupWorkflows}>
-          Set up Workflows
-        </button>
-      </div>
+      <Section>
+        <h1 className="vd-header vd-header--page">Setup</h1>
+      </Section>
+      <Section>
+        <Button onClick={setupWorkflows}>Set up Workflows</Button>
+      </Section>
     </>
   )
 }

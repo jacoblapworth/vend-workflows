@@ -54,7 +54,7 @@ function Products() {
     return SWR.data.products.pageInfo.endCursor
   }
 
-  const { pages, isLoadingMore, isReachingEnd, loadMore } = useSWRPages(
+  const { pages, isLoadingMore, loadMore } = useSWRPages(
     'products', // page key
     getPages, // page component
     getOffset, // get next page's offset from the index of current page
