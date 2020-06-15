@@ -7,6 +7,11 @@ export function SideBar() {
       <SideNavContent>
         <SideNavDrawer>
           <NavItem>
+            <Link href="/setup">
+              <A>Setup</A>
+            </Link>
+          </NavItem>
+          <NavItem>
             <Link href="/business-rules">
               <A>Business Rules</A>
             </Link>
