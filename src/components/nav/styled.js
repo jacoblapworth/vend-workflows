@@ -23,8 +23,16 @@ export const SideNavDrawer = styled.div`
 export const NavItem = styled.div`
   width: 100%;
   height: auto;
-  color: #3a4953;
+  color: ${(props) =>
+    props.active
+      ? 'var(--vd-colour--supplementary)'
+      : 'var(--vd-colour--text)'};
   font-weight: 700;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--vd-colour--background);
+  }
 `
 export const A = styled.a`
   display: flex;

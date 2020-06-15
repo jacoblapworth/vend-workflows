@@ -1,32 +1,40 @@
 import Link from 'next/link'
-import { SideNav, SideNavContent, SideNavDrawer, NavItem, A } from './style'
+import { SideNav, SideNavContent, SideNavDrawer, NavItem, A } from './styled'
 
-export function SideBar() {
+export function SideBar(props) {
+  const { active } = props
+  const navItems = [
+    {
+      name: 'Setup',
+      url: '/setup',
+    },
+    {
+      name: 'Business Rules',
+      url: '/business-rules',
+    },
+    {
+      name: 'Custom Fields',
+      url: '/custom-fields',
+    },
+    {
+      name: 'Products',
+      url: '/products',
+    },
+  ]
+
+  const nav = navItems.map((navItem) => {
+    return (
+      <NavItem key={navItem.url} active={navItem.url === active}>
+        <Link href={navItem.url}>
+          <A>{navItem.name}</A>
+        </Link>
+      </NavItem>
+    )
+  })
   return (
     <SideNav>
       <SideNavContent>
-        <SideNavDrawer>
-          <NavItem>
-            <Link href="/setup">
-              <A>Setup</A>
-            </Link>
-          </NavItem>
-          <NavItem>
-            <Link href="/business-rules">
-              <A>Business Rules</A>
-            </Link>
-          </NavItem>
-          <NavItem>
-            <Link href="/custom-fields">
-              <A>Custom Fields</A>
-            </Link>
-          </NavItem>
-          <NavItem>
-            <Link href="/products">
-              <A>Products</A>
-            </Link>
-          </NavItem>
-        </SideNavDrawer>
+        <SideNavDrawer>{nav}</SideNavDrawer>
       </SideNavContent>
     </SideNav>
   )
