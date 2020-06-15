@@ -33,3 +33,7 @@ export const ErrorMessage = dynamic(
   () => import('@vendhq/shared-react').then((module) => module.ErrorMessage),
   { ssr: false }
 )
+export const Badge = dynamic(
+  () => import('@vendhq/shared-react').then((module) => module.Badge),
+  { ssr: false }
+)
