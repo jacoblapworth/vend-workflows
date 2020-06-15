@@ -21,6 +21,11 @@ export function SideBar() {
               <A>Custom Fields</A>
             </Link>
           </NavItem>
+          <NavItem>
+            <Link href="/products">
+              <A>Products</A>
+            </Link>
+          </NavItem>
         </SideNavDrawer>
       </SideNavContent>
     </SideNav>

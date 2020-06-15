@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const SideNav = styled.div`
   display: block;
-  height: calc(100% - 50px);
+  height: calc(100%);
   z-index: 200;
   position: relative;
 `
