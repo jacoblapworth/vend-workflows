@@ -2,7 +2,7 @@ import cookies from 'next-cookies'
 import '@vendhq/vend-styles/dist/vend-styles.css'
 import { NavHeader } from '../components/nav/NavHeader'
 import { SideBar } from '../components/nav/SideBar'
-import { Body, Content } from './style'
+import { Body, Content } from '../components/styled'
 
 // This default export is required in a new `pages/_app.js` file.
 export default function Workflows({ Component, pageProps }) {
