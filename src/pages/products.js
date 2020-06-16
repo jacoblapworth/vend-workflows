@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import useSWR, { useSWRPages } from 'swr'
 import { GraphQLClient } from 'graphql-request'
 
@@ -14,16 +14,18 @@ function Products() {
   const graphQLClient = new GraphQLClient(API)
 
   function getPages({ offset, withSWR }) {
-    const variables = {
-      first: 20,
-      after: offset,
+    const fetcher = (query, offset) => {
+      const variables = {
+        first: 20,
+        after: offset,
+      }
+      return graphQLClient.request(query, variables)
     }
 
-    const fetcher = (query) => graphQLClient.request(query, variables)
-    const { data } = withSWR(useSWR(getProducts, fetcher))
+    const { data } = withSWR(useSWR([getProducts, offset], fetcher))
 
     if (!data) {
-      return <Spinner />
+      return <></>
     }
 
     return data.products.products.map((product) => (
@@ -42,14 +44,10 @@ function Products() {
     ))
   }
 
-  function getOffset(SWR, index) {
+  function getOffset(SWR) {
     if (!SWR.data.products.pageInfo.hasNextPage) {
       return null
     }
-
-    console.log('index', index)
-    console.log('endCursor', SWR.data.products.pageInfo.endCursor)
-    console.log('startCursor', SWR.data.products.pageInfo.startCursor)
 
     return SWR.data.products.pageInfo.endCursor
   }
@@ -60,9 +58,6 @@ function Products() {
     getOffset, // get next page's offset from the index of current page
     [] // deps of the page component
   )
-
-  // if (error) return <div>failed to load</div>
-  // if (!data) return <Spinner />
 
   return (
     <>
