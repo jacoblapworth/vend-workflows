@@ -11,6 +11,7 @@ import {
   Tabs,
   TabContent,
   SelectedTabProvider,
+  LoaderSpinner,
 } from '../components/SharedReact'
 
 import { Spinner } from '../components/Spinner'
@@ -40,7 +41,7 @@ const CustomFields = (props) => {
 
   const { data, error } = useSWR(getCustomFields, fetcher)
   if (error) return <div>failed to load</div>
-  if (!data) return <Spinner />
+  if (!data) return <LoaderSpinner />
 
   function Rows(props) {
     const { customFields } = props

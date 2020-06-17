@@ -37,3 +37,7 @@ export const Badge = dynamic(
   () => import('@vendhq/shared-react').then((module) => module.Badge),
   { ssr: false }
 )
+export const LoaderSpinner = dynamic(
+  () => import('@vendhq/shared-react').then((module) => module.LoaderSpinner),
+  { ssr: false }
+)

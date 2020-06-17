@@ -3,13 +3,13 @@ import axios from 'axios'
 import { format, formatDistance } from 'date-fns'
 
 import Section from '../components/Section'
-import { Spinner } from '../components/Spinner'
+import { LoaderSpinner } from '../components/SharedReact'
 
 function BusinessRules() {
   const fetcher = (query) => axios.get(query)
 
   const { data, error } = useSWR('api/vend/2.0/workflows/remote_rules', fetcher)
-  if (!data) return <Spinner />
+  if (!data) return <LoaderSpinner />
 
   const remoteRules = data.data.map((rule) => {
     const date = new Date(rule.created_at)
