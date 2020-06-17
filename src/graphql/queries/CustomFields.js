@@ -27,4 +27,12 @@ export const getCustomFields = /* GraphQL */ `
   }
 `
 
+export const getProductCustomFields = /* GraphQL */ `
+  customFields(entity: PRODUCT) {
+      id
+      title
+      type
+    }
+`
+
 export default getCustomFields

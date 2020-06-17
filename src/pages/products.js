@@ -1,17 +1,30 @@
-import React, { useMemo } from 'react'
+import React, { useState } from 'react'
 import useSWR, { useSWRPages } from 'swr'
 import { GraphQLClient } from 'graphql-request'
 
 import { getProducts } from '../graphql/queries/Products'
 
 import { Badge, Button } from '../components/SharedReact'
-
+import EditCustomFields from '../components/products/editProduct'
 import { Spinner } from '../components/Spinner'
 import Section from '../components/Section'
 
 function Products() {
   const API = '/api/vend/graphql'
   const graphQLClient = new GraphQLClient(API)
+
+  const [editProductModal, setEditProductModal] = useState(false)
+  const [product, setProduct] = useState(null)
+
+  function editProduct(product) {
+    setProduct(product)
+    setEditProductModal(true)
+  }
+
+  function closeModal() {
+    setEditProductModal(false)
+    setProduct(null)
+  }
 
   function getPages({ offset, withSWR }) {
     const fetcher = (query, offset) => {
@@ -40,6 +53,15 @@ function Products() {
             />
           </div>
         </td>
+        <td>
+          <Button
+            modifier="icon"
+            variant="go"
+            onClick={() => editProduct(product)}
+          >
+            <i className="fa fa-pencil vd-icon"></i>
+          </Button>
+        </td>
       </tr>
     ))
   }
@@ -64,6 +86,9 @@ function Products() {
       <Section>
         <h1 className="vd-header vd-header--page">Products</h1>
       </Section>
+      {editProductModal && (
+        <EditCustomFields onClose={closeModal} product={product} />
+      )}
       <section className="vd-section vd-section--secondary">
         <div className="vd-section-wrap">
           <div className="vd-flex vd-flex--justify-between vd-flex--align-center">
@@ -80,6 +105,7 @@ function Products() {
           </thead>
           <tbody>{pages}</tbody>
         </table>
+        {isLoadingMore && <Spinner />}
         <Button onClick={loadMore} loading={isLoadingMore}>
           Load more
         </Button>

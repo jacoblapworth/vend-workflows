@@ -21,4 +21,24 @@ export const getProducts = /* GraphQL */ `
   }
 `
 
+export const getProduct = /* GraphQL */ `
+  query getProduct($id: ID!) {
+    product(id: $id) {
+      customFields {
+        name
+        title
+        ... on IntegerCustomFieldValue {
+          integerValue
+        }
+        ... on StringCustomFieldValue {
+          stringValue
+        }
+        ... on BooleanCustomFieldValue {
+          booleanValue
+        }
+      }
+    }
+  }
+`
+
 export default getProducts
