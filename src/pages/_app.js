@@ -5,6 +5,7 @@ import Head from 'next/head'
 import '@vendhq/vend-styles/dist/vend-styles.css'
 import { NavHeader } from '../components/nav/NavHeader'
 import { SideBar } from '../components/nav/SideBar'
+import { DemoWarning } from '../components/DemoWarning'
 import { Body, Content } from '../components/styled'
 
 // This default export is required in a new `pages/_app.js` file.
@@ -26,6 +27,7 @@ export default function Workflows({ Component, pageProps }) {
         ></link>
       </Head>
       <NavHeader />
+      <DemoWarning></DemoWarning>
       <Body className="vd-body">
         <SideBar active={router.pathname} />
         <Content className="vd-main-content-container vd-main-content-inner-container">
