@@ -6,8 +6,8 @@ export const Switch = React.forwardRef(function Switch(props, innerRef) {
       <input
         className="vd-switch-input"
         type="checkbox"
-        ref={innerRef}
         {...props}
+        ref={innerRef}
       />
       <div className="vd-switch-track">
         <i className="fa fa-check vd-switch-icon" />

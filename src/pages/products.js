@@ -5,7 +5,7 @@ import { GraphQLClient } from 'graphql-request'
 import { getProducts } from '../graphql/queries/Products'
 
 import { Badge, Button } from '../components/SharedReact'
-import EditCustomFields from '../components/products/editProduct'
+import { EditProductCustomFieldsModal } from '../components/products/editProductCustomFieldsModal'
 import { Spinner } from '../components/Spinner'
 import Section from '../components/Section'
 
@@ -35,7 +35,13 @@ function Products() {
       return graphQLClient.request(query, variables)
     }
 
-    const { data } = withSWR(useSWR([getProducts, offset], fetcher))
+    const { data } = withSWR(
+      useSWR([getProducts, offset], fetcher, {
+        onSuccess: () => console.log('Success'),
+        // revalidateOnMount: false,
+        revalidateOnFocus: false,
+      })
+    )
 
     if (!data) {
       return <></>
@@ -87,7 +93,7 @@ function Products() {
         <h1 className="vd-header vd-header--page">Products</h1>
       </Section>
       {editProductModal && (
-        <EditCustomFields onClose={closeModal} product={product} />
+        <EditProductCustomFieldsModal onClose={closeModal} product={product} />
       )}
       <section className="vd-section vd-section--secondary">
         <div className="vd-section-wrap">

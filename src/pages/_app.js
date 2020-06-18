@@ -7,6 +7,7 @@ import { NavHeader } from '../components/nav/NavHeader'
 import { SideBar } from '../components/nav/SideBar'
 import { DemoWarning } from '../components/DemoWarning'
 import { Body, Content } from '../components/styled'
+import { Providers } from '../components/Providers'
 
 // This default export is required in a new `pages/_app.js` file.
 export default function Workflows({ Component, pageProps }) {
@@ -26,14 +27,16 @@ export default function Workflows({ Component, pageProps }) {
           href="https://www.vendhq.com/favicon.ico"
         ></link>
       </Head>
-      <NavHeader />
-      <DemoWarning></DemoWarning>
-      <Body className="vd-body">
-        <SideBar active={router.pathname} />
-        <Content className="vd-main-content-container vd-main-content-inner-container">
-          <Component {...pageProps} />
-        </Content>
-      </Body>
+      <Providers>
+        <NavHeader />
+        <DemoWarning></DemoWarning>
+        <Body className="vd-body">
+          <SideBar active={router.pathname} />
+          <Content className="vd-main-content-container vd-main-content-inner-container">
+            <Component {...pageProps} />
+          </Content>
+        </Body>
+      </Providers>
     </>
   )
 }
