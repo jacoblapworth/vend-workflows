@@ -7,9 +7,22 @@ import {
 
 const isProduction = process.env.NODE_ENV === 'production'
 
+const cache = new InMemoryCache({
+  typePolicies: {
+    Product: {
+      // In most inventory management systems, a single UPC code uniquely
+      // identifies any product.
+      keyFields: ['id'],
+    },
+    ProductsConnection: {
+      keyFields: ['pageInfo', ['startCursor', 'endCursor']],
+    },
+  },
+})
+
 export function Providers({ children }) {
   const client = new ApolloClient({
-    cache: new InMemoryCache(),
+    cache: cache,
     link: new HttpLink({
       uri: isProduction
         ? 'https://workflows.now.sh/api/vend/graphql'

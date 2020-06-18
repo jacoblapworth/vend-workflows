@@ -76,18 +76,24 @@ function Products() {
       updateQuery: (previousResult, { fetchMoreResult }) => {
         console.log('previousResult', previousResult)
         console.log('fetchMoreResult', fetchMoreResult)
-        const previousEntry = previousResult.products
-        const nextEntry = fetchMoreResult.products.products
-        const newCursor = fetchMoreResult.products.pageInfo.endCursor
-        return {
-          // By returning `cursor` here, we update the `fetchMore` function
-          // to the new cursor.
-          endCursor: newCursor,
+
+        const newQuery = {
           products: {
-            products: [...nextEntry, ...previousEntry.products],
+            __typename: 'ProductsConnection',
+            pageInfo: {
+              startCursor: previousResult.products.pageInfo.startCursor,
+              endCursor: fetchMoreResult.products.pageInfo.endCursor,
+            },
+            products: [
+              ...previousResult.products.products,
+              ...fetchMoreResult.products.products,
+            ],
           },
-          __typename: previousEntry.__typename,
         }
+
+        console.log(newQuery)
+
+        return newQuery
       },
     })
   }

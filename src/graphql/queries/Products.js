@@ -1,3 +1,30 @@
+import { gql } from '@apollo/client'
+
+export const GET_PRODUCTS = gql`
+  query getProducts($after: String, $first: Int!, $filter: ProductFilter) {
+    products(
+      after: $after
+      first: $first
+      filter: $filter
+      orderBy: { direction: ASC, field: NAME }
+    ) @connection(key: "products") {
+      products {
+        __typename
+        id
+        name
+        sku
+        imageThumbnailURL
+      }
+      totalCount
+      pageInfo {
+        startCursor
+        endCursor
+        hasNextPage
+      }
+    }
+  }
+`
+
 export const getProducts = /* GraphQL */ `
   query getProducts($after: String, $first: Int) {
     products(
