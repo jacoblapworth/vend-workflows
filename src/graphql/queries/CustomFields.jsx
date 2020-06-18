@@ -69,29 +69,4 @@ export const GET_PRODUCT_CUSTOM_FIELD_VALUES = gql`
   }
 `
 
-export const setCustomFieldValues = /* GraphQL */ `
-mutation setCustomFieldValues(
-  $entity: CustomFieldEntity!
-      $entityId: ID!
-      $values: [CustomFieldValueInput!]!
-){
-  setCustomFieldValues(
-    entity: $entity
-      entityId: $entityId
-      values: $values
-  ){
-    name
-    title
-      ...on IntegerCustomFieldValue {
-      integerValue
-    }
-      ...on StringCustomFieldValue {
-      stringValue
-    }
-      ...on BooleanCustomFieldValue {
-      booleanValue
-    }
-  })
-  `
-
 export default getCustomFields

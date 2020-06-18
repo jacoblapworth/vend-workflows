@@ -1,14 +1,29 @@
+// Libs
 import React, { Fragment } from 'react'
-import { useQuery } from '@apollo/client'
+import { useQuery, useMutation } from '@apollo/client'
 import { useForm } from 'react-hook-form'
 
+// GraphQL
 import { GET_PRODUCT_CUSTOM_FIELD_VALUES } from '../../graphql/queries/CustomFields'
+import { SET_CUSTOM_FIELD_VALUES } from '../../graphql/mutations/CustomFields'
 
+// Components
 import { Badge, Dialog, Button, LoaderSpinner } from '../SharedReact'
-import { InputField } from '../InputField'
-import { Switch } from '../Switch'
-import { Label } from '../Label'
-// import { Form } from './form'
+import { Form } from './form'
+
+function getValueTypeForCustomField(customFields, customFieldName) {
+  const field = customFields.find((field) => field.name == customFieldName)
+  switch (field.type) {
+    case 'STRING':
+      return 'stringValue'
+    case 'INTEGER':
+      return 'integerValue'
+    case 'BOOLEAN':
+      return 'booleanValue'
+    default:
+      break
+  }
+}
 
 export const EditProductCustomFieldsModal = React.memo(
   function EditProductCustomFieldsModal(props) {
@@ -18,69 +33,27 @@ export const EditProductCustomFieldsModal = React.memo(
       variables: { productId: product.id },
     })
 
-    const { register, errors, handleSubmit } = useForm()
+    const [setCustomFieldValues] = useMutation(SET_CUSTOM_FIELD_VALUES)
 
-    function onSubmit(data) {
-      console.log('data', data)
-    }
+    const formMethods = useForm()
+    const { handleSubmit } = formMethods
 
-    const Form = () => {
-      return (
-        <Fragment>
-          <form onSubmit={handleSubmit(onSubmit)} className="vd-mt5 vd-mb5">
-            {data &&
-              data.customFields.map((customField) => {
-                const defaultValue = data.product.customFields.find(
-                  (customFieldValue) =>
-                    customFieldValue.name === customField.name
-                )
+    const save = (formData) => {
+      const values = Object.entries(formData).map((fields) => {
+        const valueType = getValueTypeForCustomField(
+          data.customFields,
+          fields[0]
+        )
+        return { name: fields[0], [valueType]: fields[1] }
+      })
 
-                switch (customField.type) {
-                  case 'STRING':
-                    return (
-                      <InputField
-                        key={customField.name}
-                        name={customField.name}
-                        label={customField.title}
-                        innerRef={register()}
-                        errors={errors}
-                        defaultValue={defaultValue && defaultValue.stringValue}
-                      />
-                    )
-                  case 'INTEGER':
-                    return (
-                      <InputField
-                        key={customField.name}
-                        name={customField.name}
-                        label={customField.title}
-                        innerRef={register()}
-                        errors={errors}
-                        type="number"
-                        defaultValue={defaultValue && defaultValue.integerValue}
-                      />
-                    )
-                  case 'BOOLEAN':
-                    return (
-                      <div className="vd-field" key={customField.name}>
-                        <Switch
-                          name={customField.name}
-                          ref={register}
-                          defaultChecked={
-                            defaultValue && defaultValue.booleanValue
-                          }
-                        />
-                        <Label className="vd-ml2" name={customField.name}>
-                          {customField.title}
-                        </Label>
-                      </div>
-                    )
-                  default:
-                    return null
-                }
-              })}
-          </form>
-        </Fragment>
-      )
+      setCustomFieldValues({
+        variables: {
+          entity: 'PRODUCT',
+          entityId: product.id,
+          values: values,
+        },
+      })
     }
 
     return (
@@ -88,24 +61,26 @@ export const EditProductCustomFieldsModal = React.memo(
         dismissible={true}
         header={'Edit Custom Fields'}
         content={
-          <React.Fragment>
+          <Fragment>
             <Badge
               header={product.name}
               description={product.sku}
               image={product.imageThumbnailURL}
               size="medium"
             />
-            {loading && <LoaderSpinner />}
-            {error && 'Error: ' + error}
-            {data && <Form />}
-          </React.Fragment>
+            <div className="vd-mt5 vd-mb5">
+              {loading && <LoaderSpinner />}
+              {error && 'Error: ' + error}
+              {data && <Form data={data} formMethods={formMethods} />}
+            </div>
+          </Fragment>
         }
         actions={
           <div className="vd-btn-group">
             <Button onClick={onClose} variant="supplementary">
               Cancel
             </Button>
-            <Button onClick={handleSubmit(onSubmit)}>Save</Button>
+            <Button onClick={handleSubmit(save)}>Save</Button>
           </div>
         }
         onClose={onClose}
