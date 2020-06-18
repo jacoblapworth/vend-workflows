@@ -4,7 +4,7 @@
     "build": "next build",
     "start": "next start",
     "debug": "NODE_OPTIONS='--inspect' next dev",
-    "lint": "eslint ./src/* -c .eslintrc --fix --ext js,jsx",
+    "lint": "eslint ./src/* -c .eslintrc --fix --ext js,jsx"
   },
   "engines": {
     "node": "12.x"
