@@ -11,7 +11,7 @@ export function InputField(props) {
       <div className="vd-value">
         <input
           className={classNames('vd-input', {
-            'vd-input--error': errors[name] || false,
+            'vd-input--error': errors ? errors[name] : false,
           })}
           name={name}
           ref={innerRef}
@@ -21,9 +21,11 @@ export function InputField(props) {
           {prefix}
         </div>
       </div>
-      <Error errors={errors} name={name}>
-        {({ message }) => <ErrorMessage>{message}</ErrorMessage>}
-      </Error>
+      {errors && (
+        <Error errors={errors} name={name}>
+          {({ message }) => <ErrorMessage>{message}</ErrorMessage>}
+        </Error>
+      )}
     </div>
   )
 }
