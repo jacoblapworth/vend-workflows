@@ -33,7 +33,12 @@ export const EditProductCustomFieldsModal = React.memo(
       variables: { productId: product.id },
     })
 
-    const [setCustomFieldValues] = useMutation(SET_CUSTOM_FIELD_VALUES)
+    const [setCustomFieldValues, { loading: mutationLoading }] = useMutation(
+      SET_CUSTOM_FIELD_VALUES,
+      {
+        onCompleted: () => onClose(),
+      }
+    )
 
     const formMethods = useForm()
     const { handleSubmit } = formMethods
@@ -80,7 +85,9 @@ export const EditProductCustomFieldsModal = React.memo(
             <Button onClick={onClose} variant="supplementary">
               Cancel
             </Button>
-            <Button onClick={handleSubmit(save)}>Save</Button>
+            <Button onClick={handleSubmit(save)} loading={mutationLoading}>
+              Save
+            </Button>
           </div>
         }
         onClose={onClose}

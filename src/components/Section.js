@@ -1,4 +1,4 @@
-export function Page(props) {
+export function Section(props) {
   const { children } = props
   return (
     <section className="vd-section">
@@ -7,4 +7,4 @@ export function Page(props) {
   )
 }
 
-export default Page
+export default Section

@@ -12,6 +12,7 @@ export function InputField(props) {
         <input
           className={classNames('vd-input', {
             'vd-input--error': errors ? errors[name] : false,
+            'vd-input--icon-left': prefix,
           })}
           name={name}
           ref={innerRef}
