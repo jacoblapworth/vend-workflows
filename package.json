@@ -19,7 +19,7 @@
     "@apollo/client": "^3.0.0-beta.53",
     "@apollo/react-hooks": "^3.1.5",
     "@vendhq/shared-react": "^1.12.0",
-    "@vendhq/vend-styles": "^2.0.1",
+    "@vendhq/vend-styles": "^3.2.0",
     "@zeit/next-source-maps": "^0.0.3",
     "apollo-boost": "^0.4.9",
     "axios": "^0.19.2",
@@ -34,7 +34,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hook-form": "^5.7.2",
-    "simple-oauth2": "^3.4.0",
+    "simple-oauth2": "^4.1.0",
     "styled-components": "^5.1.1",
     "swr": "^0.2.3"
   },
