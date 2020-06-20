@@ -22,7 +22,7 @@ function getValueTypeForCustomField(customFields, customFieldName) {
   }
 }
 
-export function EditProductCustomFieldsModal(props) {
+export function CustomFieldsModal(props) {
   const { product, onClose } = props
 
   const { loading, error, data } = useQuery(GET_PRODUCT_CUSTOM_FIELD_VALUES, {
@@ -89,4 +89,4 @@ export function EditProductCustomFieldsModal(props) {
   )
 }
 
-export default EditProductCustomFieldsModal
+export default CustomFieldsModal
