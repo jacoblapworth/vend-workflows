@@ -1,18 +1,14 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useQuery } from '@apollo/client'
+import { useQuery, NetworkStatus } from '@apollo/client'
 import { GET_PRODUCTS } from '../graphql/queries/Products'
 
-import { getProducts } from '../graphql/queries/Products'
-
 import { Badge, Button } from '../components/SharedReact'
-import { EditProductCustomFieldsModal } from '../components/products/editProductCustomFieldsModal'
-import { Spinner } from '../components/Spinner'
+import { EditProductCustomFieldsModal } from '../components/Products/editProductCustomFieldsModal'
 import { InputField } from '../components/InputField'
-import Section from '../components/Section'
+import { Section } from '../components/Section'
+import { ErrorMessage } from '../components/ErrorMessage'
 import { LoaderSpinner } from '../components/SharedReact'
-
-// const ProductResults = (props) => { }
 
 const ProductRow = (props) => {
   const { product, editProduct } = props
@@ -44,6 +40,7 @@ const ProductRow = (props) => {
 function Products() {
   const [editProductModal, setEditProductModal] = useState(false)
   const [product, setProduct] = useState(null)
+  const { register, watch } = useForm()
 
   function editProduct(product) {
     setProduct(product)
@@ -55,52 +52,62 @@ function Products() {
     setProduct(null)
   }
 
-  const { register, handleSubmit, watch, errors } = useForm()
-  console.log(watch('search'))
-
-  const { loading, error, data, fetchMore } = useQuery(GET_PRODUCTS, {
-    variables: {
-      first: 20,
-    },
-  })
+  const { loading, error, data, fetchMore, networkStatus } = useQuery(
+    GET_PRODUCTS,
+    {
+      variables: {
+        first: 10,
+        filter: {
+          searchTerm: watch('search'),
+        },
+      },
+      notifyOnNetworkStatusChange: true,
+      // fetchPolicy: 'no-cache',
+    }
+  )
+  const loadingMorePosts = networkStatus === NetworkStatus.fetchMore
 
   const endCursor = data && data.products.pageInfo.endCursor
+  const hasNextPage = data && data.products.pageInfo.hasNextPage
 
-  function loadMore() {
+  const handleLoadMore = () => {
     fetchMore({
       query: GET_PRODUCTS,
       variables: {
-        first: 20,
+        first: 10,
         after: endCursor,
+        filter: {
+          searchTerm: watch('search'),
+        },
       },
-      updateQuery: (previousResult, { fetchMoreResult }) => {
-        console.log('previousResult', previousResult)
-        console.log('fetchMoreResult', fetchMoreResult)
-
+      updateQuery: (prev, { fetchMoreResult }) => {
         const newQuery = {
           products: {
-            __typename: 'ProductsConnection',
-            pageInfo: {
-              startCursor: previousResult.products.pageInfo.startCursor,
-              endCursor: fetchMoreResult.products.pageInfo.endCursor,
-            },
+            ...fetchMoreResult.products,
             products: [
-              ...previousResult.products.products,
+              ...prev.products.products,
               ...fetchMoreResult.products.products,
             ],
           },
         }
-
-        console.log(newQuery)
 
         return newQuery
       },
     })
   }
 
+  if (error) return <ErrorMessage message="Error loading posts." />
+
   const Pages = () => {
-    if (loading) return null
-    if (error) return 'Error! ' + error
+    if (loading && !loadingMorePosts)
+      return (
+        <tr>
+          <td>
+            <LoaderSpinner />
+          </td>
+        </tr>
+      )
+
     return data.products.products.map((product) => (
       <ProductRow
         key={product.id}
@@ -127,7 +134,7 @@ function Products() {
       </section>
       <Section>
         <InputField name="search" label="Search" innerRef={register} />
-        <table className="p-table p-table--no-wrap vd-table">
+        <table className="p-table p-table--no-wrap vd-table vd-mb4">
           <thead>
             <tr>
               <th>Product</th>
@@ -137,8 +144,11 @@ function Products() {
             <Pages />
           </tbody>
         </table>
-        {loading && <LoaderSpinner />}
-        <Button onClick={loadMore}>Load more</Button>
+        {hasNextPage && (
+          <Button onClick={handleLoadMore} loading={loadingMorePosts}>
+            Load more
+          </Button>
+        )}
       </Section>
     </>
   )

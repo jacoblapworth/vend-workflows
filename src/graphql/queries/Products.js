@@ -7,7 +7,7 @@ export const GET_PRODUCTS = gql`
       first: $first
       filter: $filter
       orderBy: { direction: ASC, field: NAME }
-    ) @connection(key: "products") {
+    ) {
       products {
         __typename
         id
