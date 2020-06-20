@@ -22,76 +22,71 @@ function getValueTypeForCustomField(customFields, customFieldName) {
   }
 }
 
-export const EditProductCustomFieldsModal = React.memo(
-  function EditProductCustomFieldsModal(props) {
-    const { product, onClose } = props
+export function EditProductCustomFieldsModal(props) {
+  const { product, onClose } = props
 
-    const { loading, error, data } = useQuery(GET_PRODUCT_CUSTOM_FIELD_VALUES, {
-      variables: { productId: product.id },
+  const { loading, error, data } = useQuery(GET_PRODUCT_CUSTOM_FIELD_VALUES, {
+    variables: { productId: product.id },
+  })
+
+  const [setCustomFieldValues, { loading: mutationLoading }] = useMutation(
+    SET_CUSTOM_FIELD_VALUES,
+    {
+      onCompleted: () => onClose(),
+    }
+  )
+
+  const formMethods = useForm()
+  const { handleSubmit } = formMethods
+
+  const save = (formData) => {
+    const values = Object.entries(formData).map((fields) => {
+      const valueType = getValueTypeForCustomField(data.customFields, fields[0])
+      return { name: fields[0], [valueType]: fields[1] }
     })
 
-    const [setCustomFieldValues, { loading: mutationLoading }] = useMutation(
-      SET_CUSTOM_FIELD_VALUES,
-      {
-        onCompleted: () => onClose(),
-      }
-    )
-
-    const formMethods = useForm()
-    const { handleSubmit } = formMethods
-
-    const save = (formData) => {
-      const values = Object.entries(formData).map((fields) => {
-        const valueType = getValueTypeForCustomField(
-          data.customFields,
-          fields[0]
-        )
-        return { name: fields[0], [valueType]: fields[1] }
-      })
-
-      setCustomFieldValues({
-        variables: {
-          entity: 'PRODUCT',
-          entityId: product.id,
-          values: values,
-        },
-      })
-    }
-
-    return (
-      <Dialog
-        dismissible={true}
-        header={'Edit Custom Fields'}
-        content={
-          <Fragment>
-            <Badge
-              header={product.name}
-              description={product.sku}
-              image={product.imageThumbnailURL}
-              size="medium"
-            />
-            <div className="vd-mt5 vd-mb5">
-              {loading && <LoaderSpinner />}
-              {error && 'Error: ' + error}
-              {data && <Form data={data} formMethods={formMethods} />}
-            </div>
-          </Fragment>
-        }
-        actions={
-          <div className="vd-btn-group">
-            <Button onClick={onClose} variant="supplementary">
-              Cancel
-            </Button>
-            <Button onClick={handleSubmit(save)} loading={mutationLoading}>
-              Save
-            </Button>
-          </div>
-        }
-        onClose={onClose}
-        size={'medium'}
-      />
-    )
+    setCustomFieldValues({
+      variables: {
+        entity: 'PRODUCT',
+        entityId: product.id,
+        values: values,
+      },
+    })
   }
-)
+
+  return (
+    <Dialog
+      dismissible={true}
+      header={'Edit Custom Fields'}
+      content={
+        <Fragment>
+          <Badge
+            header={product.name}
+            description={product.sku}
+            image={product.imageThumbnailURL}
+            size="medium"
+          />
+          <div className="vd-mt5 vd-mb5">
+            {loading && <LoaderSpinner />}
+            {error && 'Error: ' + error}
+            {data && <Form data={data} formMethods={formMethods} />}
+          </div>
+        </Fragment>
+      }
+      actions={
+        <div className="vd-btn-group">
+          <Button onClick={onClose} variant="supplementary">
+            Cancel
+          </Button>
+          <Button onClick={handleSubmit(save)} loading={mutationLoading}>
+            Save
+          </Button>
+        </div>
+      }
+      onClose={onClose}
+      size={'medium'}
+    />
+  )
+}
 
 export default EditProductCustomFieldsModal
