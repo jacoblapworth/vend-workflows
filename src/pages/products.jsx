@@ -56,13 +56,12 @@ function Products() {
     GET_PRODUCTS,
     {
       variables: {
-        first: 10,
+        first: 50,
         filter: {
           searchTerm: watch('search'),
         },
       },
       notifyOnNetworkStatusChange: true,
-      // fetchPolicy: 'no-cache',
     }
   )
   const loadingMorePosts = networkStatus === NetworkStatus.fetchMore
@@ -74,7 +73,7 @@ function Products() {
     fetchMore({
       query: GET_PRODUCTS,
       variables: {
-        first: 10,
+        first: 50,
         after: endCursor,
         filter: {
           searchTerm: watch('search'),
@@ -133,7 +132,13 @@ function Products() {
         </div>
       </section>
       <Section>
-        <InputField name="search" label="Search" innerRef={register} />
+        <InputField
+          name="search"
+          label="Search for Products"
+          innerRef={register}
+          prefix={<i className="fa fa-search" />}
+          placeholder="Enter name, SKU, handle or supplier code"
+        />
         <table className="p-table p-table--no-wrap vd-table vd-mb4">
           <thead>
             <tr>
