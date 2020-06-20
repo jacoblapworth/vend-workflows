@@ -3,39 +3,14 @@ import { useForm } from 'react-hook-form'
 import { useQuery, NetworkStatus } from '@apollo/client'
 import { GET_PRODUCTS } from '../graphql/queries/Products'
 
+import { ProductRow } from '../components/Products/ProductRow'
+
 import { Badge, Button } from '../components/SharedReact'
-import { CustomFieldsModal } from '../components/Products1/CustomFieldsModal'
+import { CustomFieldsModal } from '../components/Products/CustomFieldsModal'
 import { InputField } from '../components/InputField'
-import { Section } from '../components/Section'
+import { Section } from '../components/Layout/Section'
 import { ErrorMessage } from '../components/ErrorMessage'
 import { LoaderSpinner } from '../components/SharedReact'
-
-const ProductRow = (props) => {
-  const { product, editProduct } = props
-  return (
-    <tr key={product.id}>
-      <td>
-        <div className="vd-mt4 vd-mb4">
-          <Badge
-            header={product.name}
-            description={product.sku}
-            image={product.imageThumbnailURL}
-            size="small"
-          />
-        </div>
-      </td>
-      <td>
-        <Button
-          modifier="icon"
-          variant="go"
-          onClick={() => editProduct(product)}
-        >
-          <i className="fa fa-pencil vd-icon"></i>
-        </Button>
-      </td>
-    </tr>
-  )
-}
 
 function Products() {
   const [editProductModal, setEditProductModal] = useState(false)
