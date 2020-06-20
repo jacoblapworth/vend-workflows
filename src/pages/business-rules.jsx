@@ -11,7 +11,7 @@ function BusinessRules() {
   const { data, error } = useSWR('api/vend/2.0/workflows/remote_rules', fetcher)
   if (!data) return <LoaderSpinner />
 
-  const remoteRules = data.data.map((rule) => {
+  const remoteRules = data.data.data.map((rule) => {
     const date = new Date(rule.created_at)
     return (
       <tr key={rule.id}>

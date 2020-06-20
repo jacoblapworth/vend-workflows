@@ -5,7 +5,15 @@ const PRIVATE_KEY = process.env.PRIVATE_KEY
 
 const handler = async (req, res) => {
   const { token } = req.cookies
-  const decoded = jwt.verify(token, PRIVATE_KEY, function (err, decoded) {
+
+  if (!token) {
+    console.log('Error: No token in cookies.')
+    console.log(req.body)
+    res.statusCode = 500
+    return res.end()
+  }
+
+  const decoded = jwt.verify(token, PRIVATE_KEY, (err, decoded) => {
     if (err) {
       console.error(err)
       res.statusCode = 500
@@ -31,8 +39,7 @@ const handler = async (req, res) => {
     data: req.body,
   })
     .then((result) => {
-      console.log(result.data)
-      res.send(result.data.data)
+      res.send(result.data)
     })
     .catch((error) => {
       console.error(error.response)
