@@ -4,7 +4,7 @@ import { useQuery, NetworkStatus } from '@apollo/client'
 import { GET_PRODUCTS } from '../graphql/queries/Products'
 
 import { Badge, Button } from '../components/SharedReact'
-import { EditProductCustomFieldsModal } from '../components/Products/editProductCustomFieldsModal'
+import { EditProductCustomFieldsModal } from '../components/Products/CustomFieldsModal'
 import { InputField } from '../components/InputField'
 import { Section } from '../components/Section'
 import { ErrorMessage } from '../components/ErrorMessage'
