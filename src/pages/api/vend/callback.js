@@ -15,30 +15,29 @@ const handler = (req, res) => {
   }
 
   auth(domainPrefix)
-    .authorizationCode.getToken(tokenConfig)
+    .getToken(tokenConfig)
     .then((result) => {
-      const accessToken = auth(domainPrefix).accessToken.create(result)
-      const token = jwt.sign(accessToken.token, PRIVATE_KEY)
+      const accessToken = result.token
+      const signedToken = jwt.sign(accessToken, PRIVATE_KEY)
 
       const cookieConfig = {
         sameSite: 'Strict',
         path: '/',
-        maxAge: accessToken.token.expires_in,
+        maxAge: accessToken.expires_in,
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
       }
 
-      res.setCookie('token', token, cookieConfig)
+      res.setCookie('token', signedToken, cookieConfig)
       res.statusCode = 302
       res.setHeader('location', '/custom-fields')
-      res.end()
+      return res.end()
     })
     .catch((error) => {
       console.error(error)
-      return res
-        .status(error.statusCode || 500)
-        .send({ error })
-        .end()
+      res.status(error.statusCode || 500)
+      res.send({ error })
+      return res.end()
     })
 }
 
