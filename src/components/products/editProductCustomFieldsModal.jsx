@@ -96,3 +96,5 @@ export const EditProductCustomFieldsModal = React.memo(
     )
   }
 )
+
+export default EditProductCustomFieldsModal
