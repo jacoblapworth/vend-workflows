@@ -4,7 +4,7 @@ import { useQuery, NetworkStatus } from '@apollo/client'
 import { GET_PRODUCTS } from '../graphql/queries/Products'
 
 import { Badge, Button } from '../components/SharedReact'
-import { CustomFieldsModal } from '../components/products/CustomFieldsModal'
+import { CustomFieldsModal } from '../components/Products1/CustomFieldsModal'
 import { InputField } from '../components/InputField'
 import { Section } from '../components/Section'
 import { ErrorMessage } from '../components/ErrorMessage'
@@ -122,7 +122,7 @@ function Products() {
         <h1 className="vd-header vd-header--page">Products</h1>
       </Section>
       {editProductModal && (
-        <ProductsCustomFieldsModal onClose={closeModal} product={product} />
+        <CustomFieldsModal onClose={closeModal} product={product} />
       )}
       <section className="vd-section vd-section--secondary">
         <div className="vd-section-wrap">
