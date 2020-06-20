@@ -4,7 +4,7 @@ import useSWR from 'swr'
 import { GraphQLClient } from 'graphql-request'
 
 import { getCustomFields } from '../graphql/queries/CustomFields'
-import AddCustomField from '../components/customFields/addCustomField'
+import AddCustomField from '../components/CustomFields/AddCustomField'
 
 import {
   Tab,
@@ -13,8 +13,6 @@ import {
   SelectedTabProvider,
   LoaderSpinner,
 } from '../components/SharedReact'
-
-import { Spinner } from '../components/Spinner'
 
 const CustomFields = (props) => {
   const [modal, setModal] = useState(false)

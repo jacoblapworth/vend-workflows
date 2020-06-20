@@ -6,7 +6,7 @@ import { GET_PRODUCT_CUSTOM_FIELD_VALUES } from '../../graphql/queries/CustomFie
 import { SET_CUSTOM_FIELD_VALUES } from '../../graphql/mutations/CustomFields'
 
 import { Badge, Dialog, Button, LoaderSpinner } from '../SharedReact'
-import { Form } from './form'
+import { Form } from './Form'
 
 function getValueTypeForCustomField(customFields, customFieldName) {
   const field = customFields.find((field) => field.name == customFieldName)
