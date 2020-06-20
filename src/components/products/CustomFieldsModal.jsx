@@ -1,13 +1,10 @@
-// Libs
 import React, { Fragment } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { useForm } from 'react-hook-form'
 
-// GraphQL
 import { GET_PRODUCT_CUSTOM_FIELD_VALUES } from '../../graphql/queries/CustomFields'
 import { SET_CUSTOM_FIELD_VALUES } from '../../graphql/mutations/CustomFields'
 
-// Components
 import { Badge, Dialog, Button, LoaderSpinner } from '../SharedReact'
 import { Form } from './form'
 
