@@ -8,16 +8,28 @@ import {
 const isProduction = process.env.NODE_ENV === 'production'
 
 const cache = new InMemoryCache({
-  // typePolicies: {
-  //   Product: {
-  //     // In most inventory management systems, a single UPC code uniquely
-  //     // identifies any product.
-  //     keyFields: ['id'],
-  //   },
-  //   ProductsConnection: {
-  //     keyFields: ['pageInfo', ['startCursor', 'endCursor']],
-  //   },
-  // },
+  typePolicies: {
+    CustomField: {
+      keyFields: ['name'],
+    },
+    BooleanCustomFieldValue: {
+      keyFields: ['name'],
+    },
+    StringCustomFieldValue: {
+      keyFields: ['name'],
+    },
+    IntegerCustomFieldValue: {
+      keyFields: ['name'],
+    },
+    // Product: {
+    //   // In most inventory management systems, a single UPC code uniquely
+    //   // identifies any product.
+    //   keyFields: ['id'],
+    // },
+    // ProductsConnection: {
+    //   keyFields: ['pageInfo', ['startCursor', 'endCursor']],
+    // },
+  },
 })
 
 export function Providers({ children }) {
