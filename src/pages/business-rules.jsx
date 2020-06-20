@@ -2,7 +2,7 @@ import useSWR from 'swr'
 import axios from 'axios'
 import { format, formatDistance } from 'date-fns'
 
-import Section from '../components/Section'
+import Section from '../components/Layout/Section'
 import { LoaderSpinner } from '../components/SharedReact'
 
 function BusinessRules() {

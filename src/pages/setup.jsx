@@ -1,5 +1,5 @@
 import axios from 'axios'
-import Section from '../components/Section'
+import Section from '../components/Layout/Section'
 import { Button } from '../components/SharedReact'
 
 const Setup = () => {

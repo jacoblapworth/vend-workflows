@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import { ErrorMessage as Error } from 'react-hook-form'
 import { Label } from './Label'
-import { ErrorMessage } from './SharedReact'
+import { ErrorMessage } from '../SharedReact'
 
 export function InputField(props) {
   const { name, label, innerRef, errors, prefix, ...attributes } = props

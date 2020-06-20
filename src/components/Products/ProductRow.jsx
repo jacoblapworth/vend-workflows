@@ -1,4 +1,4 @@
-import { Badge, Button } from '../components/SharedReact'
+import { Badge, Button } from '../SharedReact'
 
 export const ProductRow = (props) => {
   const { product, editProduct } = props

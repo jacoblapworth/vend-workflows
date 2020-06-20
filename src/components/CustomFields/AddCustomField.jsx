@@ -4,10 +4,10 @@ import { GraphQLClient } from 'graphql-request'
 
 import { createCustomField } from '../../graphql/mutations/CustomFields'
 import { Dialog, Button } from '../SharedReact'
-import { Switch } from '../Switch'
-import { InputField } from '../InputField'
-import { Select } from '../Select'
-import { Label } from '../Label'
+import { Switch } from '../Inputs/Switch'
+import { InputField } from '../Inputs/InputField'
+import { Select } from '../Inputs/Select'
+import { Label } from '../Inputs/Label'
 
 export default function AddCustomField(props) {
   const { onClose } = props

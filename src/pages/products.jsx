@@ -5,9 +5,9 @@ import { GET_PRODUCTS } from '../graphql/queries/Products'
 
 import { ProductRow } from '../components/Products/ProductRow'
 
-import { Badge, Button } from '../components/SharedReact'
+import { Button } from '../components/SharedReact'
 import { CustomFieldsModal } from '../components/Products/CustomFieldsModal'
-import { InputField } from '../components/InputField'
+import { InputField } from '../components/Inputs/InputField'
 import { Section } from '../components/Layout/Section'
 import { ErrorMessage } from '../components/ErrorMessage'
 import { LoaderSpinner } from '../components/SharedReact'

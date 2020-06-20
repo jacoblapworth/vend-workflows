@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react'
 
-import { InputField } from '../InputField'
-import { Select } from '../Select'
-import { Switch } from '../Switch'
-import { Label } from '../Label'
+import { InputField } from '../Inputs/InputField'
+import { Select } from '../Inputs/Select'
+import { Switch } from '../Inputs/Switch'
+import { Label } from '../Inputs/Label'
 
 export const Form = (props) => {
   const { data, formMethods } = props

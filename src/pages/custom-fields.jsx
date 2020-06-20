@@ -4,7 +4,7 @@ import useSWR from 'swr'
 import { GraphQLClient } from 'graphql-request'
 
 import { getCustomFields } from '../graphql/queries/CustomFields'
-import AddCustomField from '../components/CustomFields1/AddCustomField'
+import AddCustomField from '../components/CustomFields/AddCustomField'
 
 import {
   Tab,
