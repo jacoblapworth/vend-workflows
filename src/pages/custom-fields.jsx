@@ -4,16 +4,15 @@ import useSWR from 'swr'
 import { GraphQLClient } from 'graphql-request'
 
 import { getCustomFields } from '../graphql/queries/CustomFields'
-import AddCustomField from '../components/customFields/addCustomField'
+import AddCustomField from '../components/CustomFields/AddCustomField'
 
 import {
   Tab,
   Tabs,
   TabContent,
   SelectedTabProvider,
+  LoaderSpinner,
 } from '../components/SharedReact'
-
-import { Spinner } from '../components/Spinner'
 
 const CustomFields = (props) => {
   const [modal, setModal] = useState(false)
@@ -40,7 +39,7 @@ const CustomFields = (props) => {
 
   const { data, error } = useSWR(getCustomFields, fetcher)
   if (error) return <div>failed to load</div>
-  if (!data) return <Spinner />
+  if (!data) return <LoaderSpinner />
 
   function Rows(props) {
     const { customFields } = props
@@ -48,8 +47,11 @@ const CustomFields = (props) => {
       const { name, title, type, visibleInUI } = lineItemField
 
       return (
-        <tr key={name}>
+        <tr key={name} className="vd-expandable">
           <td>{title}</td>
+          <td>
+            <pre>{name}</pre>
+          </td>
           <td>
             <pre>{type}</pre>
           </td>
@@ -106,6 +108,7 @@ const CustomFields = (props) => {
             <table className="p-table p-table--no-wrap vd-table">
               <thead>
                 <tr>
+                  <th>Title</th>
                   <th>Name</th>
                   <th>Type</th>
                   <th>Visible</th>

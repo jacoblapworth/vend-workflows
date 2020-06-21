@@ -1,4 +1,4 @@
-import auth from 'simple-oauth2'
+import auth, { AuthorizationCode } from 'simple-oauth2'
 
 const domainPrefix = 'secure'
 
@@ -24,7 +24,7 @@ function authInstance(credentials) {
     throw new Error('MISSING REQUIRED ENV VARS. Please set VEND_CLIENT_SECRET')
   }
   // return oauth instance
-  return auth.create(credentials)
+  return new AuthorizationCode(credentials)
 }
 
 export default function authWithDomain(domain = null) {

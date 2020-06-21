@@ -2,7 +2,7 @@ import auth, { config } from '../../../utils/oauth'
 
 export default (req, res) => {
   /* Generate authorizationURI */
-  const authorizationURI = auth().authorizationCode.authorizeURL({
+  const authorizationURI = auth().authorizeURL({
     redirect_uri: config.redirect_uri,
   })
 

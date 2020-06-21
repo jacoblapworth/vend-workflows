@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import { ErrorMessage as Error } from 'react-hook-form'
 import { Label } from './Label'
-import { ErrorMessage } from './SharedReact'
+import { ErrorMessage } from '../SharedReact'
 
 export function InputField(props) {
   const { name, label, innerRef, errors, prefix, ...attributes } = props
@@ -11,7 +11,8 @@ export function InputField(props) {
       <div className="vd-value">
         <input
           className={classNames('vd-input', {
-            'vd-input--error': errors[name],
+            'vd-input--error': errors ? errors[name] : false,
+            'vd-input--icon-left': prefix,
           })}
           name={name}
           ref={innerRef}
@@ -21,9 +22,11 @@ export function InputField(props) {
           {prefix}
         </div>
       </div>
-      <Error errors={errors} name={name}>
-        {({ message }) => <ErrorMessage>{message}</ErrorMessage>}
-      </Error>
+      {errors && (
+        <Error errors={errors} name={name}>
+          {({ message }) => <ErrorMessage>{message}</ErrorMessage>}
+        </Error>
+      )}
     </div>
   )
 }

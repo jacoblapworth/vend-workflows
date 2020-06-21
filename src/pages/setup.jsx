@@ -1,4 +1,7 @@
 import axios from 'axios'
+import Section from '../components/Layout/Section'
+import { Card } from '../components/Card'
+import { Button } from '../components/SharedReact'
 
 const Setup = () => {
   const appUrl = process.env.URL || 'https://workflows.now.sh'
@@ -39,13 +42,31 @@ const Setup = () => {
 
   return (
     <>
-      <div className="vd-section">
-        <h1>Setup</h1>
-
-        <button className="vd-btn vd-btn--do" onClick={setupWorkflows}>
-          Set up Workflows
-        </button>
-      </div>
+      <Section>
+        <h1 className="vd-header vd-header--page">Setup</h1>
+      </Section>
+      <Section>
+        <Button onClick={setupWorkflows}>Set up Workflows</Button>
+        <div className="vd-flex vd-flex--column">
+          <Card>
+            <div className="vd-ma5">
+              <div className="vd-text-sub-heading">
+                Create a remote business rule
+              </div>
+            </div>
+          </Card>
+          <Card>
+            <div className="vd-ma5">
+              <div className="vd-text-sub-heading">Create a business rule</div>
+            </div>
+          </Card>
+          <Card>
+            <div className="vd-ma5">
+              <div className="vd-text-sub-heading">Set up business rule</div>
+            </div>
+          </Card>
+        </div>
+      </Section>
     </>
   )
 }
