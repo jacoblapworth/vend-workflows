@@ -54,6 +54,7 @@ function Products() {
         after: endCursor,
         filter: {
           searchTerm: watch('search'),
+          excludeChildren: true,
         },
       },
       updateQuery: (prev, { fetchMoreResult }) => {
