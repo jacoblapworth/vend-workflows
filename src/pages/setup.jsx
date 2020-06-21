@@ -1,5 +1,6 @@
 import axios from 'axios'
 import Section from '../components/Layout/Section'
+import { Card } from '../components/Card'
 import { Button } from '../components/SharedReact'
 
 const Setup = () => {
@@ -46,6 +47,25 @@ const Setup = () => {
       </Section>
       <Section>
         <Button onClick={setupWorkflows}>Set up Workflows</Button>
+        <div className="vd-flex vd-flex--column">
+          <Card>
+            <div className="vd-ma5">
+              <div className="vd-text-sub-heading">
+                Create a remote business rule
+              </div>
+            </div>
+          </Card>
+          <Card>
+            <div className="vd-ma5">
+              <div className="vd-text-sub-heading">Create a business rule</div>
+            </div>
+          </Card>
+          <Card>
+            <div className="vd-ma5">
+              <div className="vd-text-sub-heading">Set up business rule</div>
+            </div>
+          </Card>
+        </div>
       </Section>
     </>
   )
