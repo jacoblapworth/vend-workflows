@@ -1,7 +1,13 @@
+import classNames from 'classnames'
+
 export function Label(props) {
-  const { name, children, ...attributes } = props
+  const { name, children, hideLabel, ...attributes } = props
   return (
-    <label className="vd-label" htmlFor={name} {...attributes}>
+    <label
+      className={classNames('vd-label', { 'vd-hide-desktop': hideLabel })}
+      htmlFor={name}
+      {...attributes}
+    >
       <span>{children}</span>
     </label>
   )
