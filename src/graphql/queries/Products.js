@@ -14,29 +14,9 @@ export const GET_PRODUCTS = gql`
         name
         sku
         imageThumbnailURL
-      }
-      totalCount
-      pageInfo {
-        startCursor
-        endCursor
-        hasNextPage
-      }
-    }
-  }
-`
-
-export const getProducts = /* GraphQL */ `
-  query getProducts($after: String, $first: Int) {
-    products(
-      after: $after
-      first: $first
-      orderBy: { direction: ASC, field: NAME }
-    ) {
-      products {
-        id
-        name
-        sku
-        imageThumbnailURL
+        hasVariants
+        variantCount
+        variantName
       }
       totalCount
       pageInfo {
@@ -67,5 +47,3 @@ export const getProduct = /* GraphQL */ `
     }
   }
 `
-
-export default getProducts

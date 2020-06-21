@@ -27,15 +27,17 @@ function Products() {
     setProduct(null)
   }
 
+  const variables = {
+    first: 50,
+    filter: {
+      searchTerm: watch('search'),
+      excludeChildren: true,
+    },
+  }
   const { loading, error, data, fetchMore, networkStatus } = useQuery(
     GET_PRODUCTS,
     {
-      variables: {
-        first: 50,
-        filter: {
-          searchTerm: watch('search'),
-        },
-      },
+      variables: variables,
       notifyOnNetworkStatusChange: true,
     }
   )
@@ -48,7 +50,7 @@ function Products() {
     fetchMore({
       query: GET_PRODUCTS,
       variables: {
-        first: 50,
+        ...variables,
         after: endCursor,
         filter: {
           searchTerm: watch('search'),
@@ -117,7 +119,9 @@ function Products() {
         <table className="p-table p-table--no-wrap vd-table vd-mb4">
           <thead>
             <tr>
+              <th className="vd-pl0 vd-pr0 vd-tight"></th>
               <th>Product</th>
+              <th className="vd-pl0 vd-pr0 vd-tight"></th>
             </tr>
           </thead>
           <tbody>
