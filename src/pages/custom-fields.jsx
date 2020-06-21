@@ -47,8 +47,11 @@ const CustomFields = (props) => {
       const { name, title, type, visibleInUI } = lineItemField
 
       return (
-        <tr key={name}>
+        <tr key={name} className="vd-expandable">
           <td>{title}</td>
+          <td>
+            <pre>{name}</pre>
+          </td>
           <td>
             <pre>{type}</pre>
           </td>
@@ -105,6 +108,7 @@ const CustomFields = (props) => {
             <table className="p-table p-table--no-wrap vd-table">
               <thead>
                 <tr>
+                  <th>Title</th>
                   <th>Name</th>
                   <th>Type</th>
                   <th>Visible</th>
