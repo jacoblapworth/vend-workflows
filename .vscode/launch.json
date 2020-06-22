@@ -1,17 +1,27 @@
 {
   "version": "0.2.0",
+  "compounds": [
+    {
+      "name": "Next",
+      "configurations": [
+        "Next: Node",
+        "Next: Firefox"
+      ]
+    }
+  ],
   "configurations": [
     {
-      "type": "chrome",
+      "name": "Next: Firefox",
+      "type": "firefox",
       "request": "launch",
-      "name": "Next: Chrome",
+      "reAttach": true,
       "url": "http://localhost:3000",
       "webRoot": "${workspaceFolder}"
     },
     {
+      "name": "Next: Node",
       "type": "node",
       "request": "launch",
-      "name": "Next: NPM Node",
       "runtimeExecutable": "npm",
       "runtimeArgs": [
         "run-script",
@@ -22,15 +32,6 @@
       "internalConsoleOptions": "openOnSessionStart",
       "skipFiles": [
         "<node_internals>/**"
-      ]
-    }
-  ],
-  "compounds": [
-    {
-      "name": "Next: Full",
-      "configurations": [
-        "Next: NPM Node",
-        "Next: Chrome"
       ]
     }
   ]
