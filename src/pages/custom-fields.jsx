@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import cookies from 'next-cookies'
 import useSWR from 'swr'
 import { GraphQLClient } from 'graphql-request'
 
+import withAuthentication from '../components/WithAuthentication'
 import { getCustomFields } from '../graphql/queries/CustomFields'
 import AddCustomField from '../components/CustomFields/AddCustomField'
+
+import { ErrorMessage } from '../components/ErrorMessage'
 
 import {
   Tab,
@@ -14,8 +16,12 @@ import {
   LoaderSpinner,
 } from '../components/SharedReact'
 
-const CustomFields = (props) => {
+const CustomFields = () => {
   const [modal, setModal] = useState(false)
+  const API = '/api/vend/graphql'
+  const graphQLClient = new GraphQLClient(API)
+  const fetcher = (query) => graphQLClient.request(query)
+  const { data, error } = useSWR(getCustomFields, fetcher)
 
   function openModal() {
     setModal(true)
@@ -24,22 +30,6 @@ const CustomFields = (props) => {
   function closeModal() {
     setModal(false)
   }
-
-  const { token } = props.cookies
-
-  const API = '/api/vend/graphql'
-
-  const graphQLClient = new GraphQLClient(API, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-
-  const fetcher = (query) => graphQLClient.request(query)
-
-  const { data, error } = useSWR(getCustomFields, fetcher)
-  if (error) return <div>failed to load</div>
-  if (!data) return <LoaderSpinner />
 
   function Rows(props) {
     const { customFields } = props
@@ -68,6 +58,41 @@ const CustomFields = (props) => {
         </tr>
       )
     })
+  }
+
+  const TabContents = () => {
+    if (error)
+      return (
+        <tr>
+          <td colSpan="4">
+            <ErrorMessage>Failed to load. {error}</ErrorMessage>
+          </td>
+        </tr>
+      )
+    if (!data)
+      return (
+        <tr>
+          <td colSpan="4">
+            <LoaderSpinner />
+          </td>
+        </tr>
+      )
+    return (
+      <>
+        <TabContent name="productFields">
+          <Rows customFields={data.productFields} />
+        </TabContent>
+        <TabContent name="customerFields">
+          <Rows customFields={data.customerFields} />
+        </TabContent>
+        <TabContent name="saleFields">
+          <Rows customFields={data.saleFields} />
+        </TabContent>
+        <TabContent name="lineItemFields">
+          <Rows customFields={data.lineItemFields} />
+        </TabContent>
+      </>
+    )
   }
 
   return (
@@ -115,18 +140,7 @@ const CustomFields = (props) => {
                 </tr>
               </thead>
               <tbody>
-                <TabContent name="productFields">
-                  <Rows customFields={data.productFields} />
-                </TabContent>
-                <TabContent name="customerFields">
-                  <Rows customFields={data.customerFields} />
-                </TabContent>
-                <TabContent name="saleFields">
-                  <Rows customFields={data.saleFields} />
-                </TabContent>
-                <TabContent name="lineItemFields">
-                  <Rows customFields={data.lineItemFields} />
-                </TabContent>
+                <TabContents />
               </tbody>
             </table>
           </div>
@@ -136,11 +150,4 @@ const CustomFields = (props) => {
   )
 }
 
-export function getServerSideProps(context) {
-  return {
-    props: {
-      cookies: cookies(context),
-    },
-  }
-}
-export default CustomFields
+export default withAuthentication(CustomFields)

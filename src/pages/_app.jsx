@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import cookies from 'next-cookies'
+import React from 'react'
+// import cookies from 'next-cookies'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import '@vendhq/vend-styles/dist/vend-styles.css'
@@ -11,12 +11,7 @@ import { Providers } from '../components/Providers'
 
 // This default export is required in a new `pages/_app.js` file.
 export default function Workflows({ Component, pageProps }) {
-  const { token } = pageProps.cookies
   const router = useRouter()
-
-  // useEffect(() => {
-  //   if (!token) router.push('/')
-  // })
 
   return (
     <>
@@ -39,13 +34,4 @@ export default function Workflows({ Component, pageProps }) {
       </Providers>
     </>
   )
-}
-
-Workflows.getInitialProps = (context) => {
-  console.log(context)
-  return {
-    pageProps: {
-      cookies: cookies(context.ctx),
-    },
-  }
 }

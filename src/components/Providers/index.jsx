@@ -5,6 +5,8 @@ import {
   ApolloProvider,
 } from '@apollo/client'
 
+import { AuthProvider } from './Auth'
+
 const isProduction = process.env.NODE_ENV === 'production'
 
 const cache = new InMemoryCache({
@@ -21,14 +23,6 @@ const cache = new InMemoryCache({
     IntegerCustomFieldValue: {
       keyFields: ['name'],
     },
-    // Product: {
-    //   // In most inventory management systems, a single UPC code uniquely
-    //   // identifies any product.
-    //   keyFields: ['id'],
-    // },
-    // ProductsConnection: {
-    //   keyFields: ['pageInfo', ['startCursor', 'endCursor']],
-    // },
   },
 })
 
@@ -43,7 +37,9 @@ export function Providers({ children }) {
   })
   return (
     <>
-      <ApolloProvider client={client}>{children}</ApolloProvider>
+      <AuthProvider>
+        <ApolloProvider client={client}>{children}</ApolloProvider>
+      </AuthProvider>
     </>
   )
 }

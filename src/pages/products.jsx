@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useQuery, NetworkStatus } from '@apollo/client'
+import withAuthentication from '../components/WithAuthentication'
 import { GET_PRODUCTS } from '../graphql/queries/Products'
 
 import { ProductRow } from '../components/Products/ProductRow'
@@ -139,4 +140,4 @@ function Products() {
   )
 }
 
-export default Products
+export default withAuthentication(Products)
