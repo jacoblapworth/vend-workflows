@@ -13,13 +13,8 @@ export default function AddCustomField(props) {
   const { onClose } = props
   const [isLoading, setIsLoading] = useState(false)
 
-  const API = '/api/vend/graphql'
-
-  const graphQLClient = new GraphQLClient(API, {
-    // headers: {
-    //   Authorization: `Bearer ${token}`,
-    // },
-  })
+  const uri = '/api/vend/graphql'
+  const graphQLClient = new GraphQLClient(uri)
 
   const { register, handleSubmit, errors, setError } = useForm()
   const onSubmit = async (customField) => {

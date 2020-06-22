@@ -2,6 +2,7 @@ import axios from 'axios'
 import Section from '../components/Layout/Section'
 import { Card } from '../components/Card'
 import { Button } from '../components/SharedReact'
+import withAuthentication from '../components/WithAuthentication'
 
 const Setup = () => {
   const appUrl = process.env.URL || 'https://workflows.now.sh'
@@ -71,4 +72,4 @@ const Setup = () => {
   )
 }
 
-export default Setup
+export default withAuthentication(Setup)
