@@ -1,7 +1,7 @@
 import { WORKFLOW_ACTIONS } from '../constants'
 import { getValueForCustomField } from '../utils/customFields'
 
-export function formAction(lineItem) {
+export function workOrderForm(lineItem) {
   const CUSTOM_FIELD_NAMES = [
     'demo_mechanic',
     'demo_authorised',
