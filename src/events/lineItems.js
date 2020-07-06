@@ -17,6 +17,8 @@ function lineItemActions(lineItem, ctx) {
     CUSTOM_FIELD
   )
 
+  if (RULE !== 'workOrderForm') return
+
   if (typeof Actions[RULE] === 'undefined') {
     throw new Error(`No action with the name: "${RULE}"`)
   }
@@ -26,19 +28,13 @@ function lineItemActions(lineItem, ctx) {
   return ruleAction
 }
 
-export function readyForPayment(event) {
-  const lineItems = event.sale.line_items
+export function respondToLineItems(event) {
+  const lineItemsAdded = event.line_items
 
-  const actions = lineItems
+  const actions = lineItemsAdded
     .flatMap((lineItem, i) => {
-      console.log(`Line_item: ${i}`, lineItem)
+      console.log(`Added_line_item: ${i}`, lineItem)
 
-      // Returns
-      if (lineItem.quantity < 0) {
-        return Actions.itemReturn(lineItem, event)
-      }
-
-      // Line-item actions
       try {
         return lineItemActions(lineItem, event)
       } catch (error) {

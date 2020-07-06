@@ -1,11 +1,11 @@
-import readyForPayment from '../../events/readyForPayment'
+import * as Events from '../../events'
 
 async function workflow(event) {
   console.log('Event:', event)
 
   const events = {
-    'sale.ready_for_payment': readyForPayment,
-    'sale.line_items.added': null,
+    'sale.ready_for_payment': Events.readyForPayment,
+    'sale.line_items.added': Events.respondToLineItems,
     'sale.line_items.removed': null,
     'sale.customer.added': null,
     'sale.created': null,
