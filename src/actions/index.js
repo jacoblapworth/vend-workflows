@@ -8,6 +8,7 @@ import { requireIMEIAction } from './requireIMEIAction'
 import { stopAction } from './stopAction'
 import { tourTimeAction } from './tourTimeAction'
 import { workOrderForm } from './workOrderForm'
+import { cafeOrder } from './cafe'
 
 export {
   confirmAction,
@@ -20,4 +21,5 @@ export {
   stopAction,
   tourTimeAction,
   workOrderForm,
+  cafeOrder,
 }

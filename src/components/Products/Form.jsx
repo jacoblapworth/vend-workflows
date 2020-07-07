@@ -39,6 +39,7 @@ export const Form = (props) => {
               <option value="requireIMEIAction">Require IMEI</option>
               <option value="tourTimeAction">Tour Time</option>
               <option value="workOrderForm">Work Order Form</option>
+              <option value="cafeOrder">Cafe Order</option>
             </Select>
           )
         }
