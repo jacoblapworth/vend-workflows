@@ -28,9 +28,9 @@ export function cafeOrder(lineItem) {
     entity: 'line_item',
     entity_id: lineItem.id,
     required_custom_fields: [
-      { name: 'REGULAR_CARAMEL_DRIZZLE' },
-      { name: 'REGULAR_WHIPPED_CREAM' },
-      { name: 'REGULAR_CARAMEL_CRUNCH_TOPPING' },
+      { name: 'demo_REGULAR_CARAMEL_DRIZZLE' },
+      { name: 'demo_REGULAR_WHIPPED_CREAM' },
+      { name: 'demo_REGULAR_CARAMEL_CRUNCH_TOPPING' },
     ],
   }
 
