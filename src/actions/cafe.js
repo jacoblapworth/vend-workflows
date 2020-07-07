@@ -27,7 +27,11 @@ export function cafeOrder(lineItem) {
     message: 'Choose some toppings for this drink:',
     entity: 'line_item',
     entity_id: lineItem.id,
-    required_custom_fields: required_custom_fields(TOPPINGS),
+    required_custom_fields: [
+      { name: 'REGULAR_CARAMEL_DRIZZLE' },
+      { name: 'REGULAR_WHIPPED_CREAM' },
+      { name: 'REGULAR_CARAMEL_CRUNCH_TOPPING' },
+    ],
   }
 
   const milkAction = {
