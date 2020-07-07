@@ -17,7 +17,9 @@ function lineItemActions(lineItem, ctx) {
     CUSTOM_FIELD
   )
 
-  if (RULE !== 'workOrderForm') return
+  const LINE_ITEM_ACTIONS = ['workOrderForm', 'cafeOrder']
+
+  if (LINE_ITEM_ACTIONS.includes(RULE)) return
 
   if (typeof Actions[RULE] === 'undefined') {
     throw new Error(`No action with the name: "${RULE}"`)
@@ -36,6 +38,7 @@ export function respondToLineItems(event) {
       console.log(`Added_line_item: ${i}`, lineItem)
 
       try {
+        console.log(lineItemActions(lineItem, event))
         return lineItemActions(lineItem, event)
       } catch (error) {
         console.warn(error)

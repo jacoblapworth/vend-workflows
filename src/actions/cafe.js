@@ -126,7 +126,7 @@ export function cafeOrder(lineItem) {
   }
 
   if (!SIZE) {
-    return sizeAction
+    return [sizeAction, toppingsAction, milkAction]
   }
 
   if (!REGULAR_CARAMEL_DRIZZLE) {
