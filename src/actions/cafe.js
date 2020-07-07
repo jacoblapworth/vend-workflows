@@ -1,7 +1,7 @@
 import { WORKFLOW_ACTIONS } from '../constants'
 import { getValueForCustomField } from '../utils/customFields'
 
-export function workOrderForm(lineItem) {
+export function cafeOrder(lineItem) {
   // const CUSTOM_FIELD_NAMES = [
   //   'demo_flavour',
   //   'demo_size',
