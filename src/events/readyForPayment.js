@@ -40,6 +40,7 @@ export function readyForPayment(event) {
 
       // Line-item actions
       try {
+        console.log('Actions:', lineItemActions(lineItem, event))
         return lineItemActions(lineItem, event)
       } catch (error) {
         console.warn(error)
