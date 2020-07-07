@@ -32,7 +32,7 @@ export function cafeOrder(lineItem) {
 
   const milkAction = {
     type: WORKFLOW_ACTIONS.REQUIRE_CUSTOM_FIELDS,
-    title: 'Choose your milk',
+    title: 'Choose your milk.',
     message: 'Choose a milk for your drink:',
     entity: 'line_item',
     entity_id: lineItem.id,
@@ -88,7 +88,7 @@ export function cafeOrder(lineItem) {
 
   const sizeAction = {
     type: WORKFLOW_ACTIONS.REQUIRE_CUSTOM_FIELDS,
-    title: 'Choose your size',
+    title: 'Choose your size.',
     message: 'Choose a size for your drink:',
     entity: 'line_item',
     entity_id: lineItem.id,
@@ -126,7 +126,7 @@ export function cafeOrder(lineItem) {
   }
 
   if (!SIZE) {
-    return [sizeAction, toppingsAction, milkAction]
+    return sizeAction
   }
 
   if (!REGULAR_CARAMEL_DRIZZLE) {

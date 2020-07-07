@@ -12,10 +12,13 @@ function lineItemActions(lineItem, ctx) {
   }
 
   const CUSTOM_FIELD = 'demo_rule'
-  const RULE = getValueForCustomField(
-    lineItem.product.custom_fields,
-    CUSTOM_FIELD
-  )
+
+  let RULE
+  try {
+    RULE = getValueForCustomField(lineItem.product.custom_fields, CUSTOM_FIELD)
+  } catch (error) {
+    throw new Error(`No rule on the product.`)
+  }
 
   const LINE_ITEM_ACTIONS = ['workOrderForm']
 
