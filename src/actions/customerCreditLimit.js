@@ -1,5 +1,4 @@
 import { WORKFLOW_ACTIONS } from '../constants'
-import { getValueForCustomField } from '../utils/customFields'
 import { redis } from '../services/redis'
 import axios from 'axios'
 
@@ -21,21 +20,23 @@ export default async function action(lineItem, ctx) {
   })
 
   const customer = await vendApi
-    .get(`/2.0/customers/${customer.id}`)
+    .get(`/2.0/customers/${saleCustomer.id}`)
     .then((res) => {
       return res.data.data
     })
     .catch(console.error)
 
-  console.log(customer)
+  console.log('Customer: ', customer)
 
   const action = {
     type: WORKFLOW_ACTIONS.CONFIRM,
     title: 'Maximum account balance exceeded',
     message: `${customer.first_name}'s balance is ${customer.balance}.`,
+    dismiss_label: 'Cancel',
+    confirm_label: 'Continue',
   }
 
-  if (customer.balance > 0) {
+  if (customer.balance < 0) {
     return action
   }
 

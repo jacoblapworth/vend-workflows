@@ -30,8 +30,8 @@ export function readyForPayment(event) {
   const lineItems = event.sale.line_items
 
   const actions = lineItems
-    .flatMap((lineItem, i) => {
-      console.log(`Line_item: ${i} ${lineItem}`)
+    .flatMap(async (lineItem, i) => {
+      console.log(`Line_item: ${i}`, lineItem)
 
       // Returns
       if (lineItem.quantity < 0) {
@@ -40,8 +40,8 @@ export function readyForPayment(event) {
 
       // Line-item actions
       try {
-        const actions = lineItemActions(lineItem, event)
-        console.log('Actions: %o', actions)
+        const actions = await lineItemActions(lineItem, event)
+        console.log('Actions: ', actions)
         return actions
       } catch (error) {
         console.warn(error)
