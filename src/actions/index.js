@@ -9,6 +9,7 @@ import { stopAction } from './stopAction'
 import { tourTimeAction } from './tourTimeAction'
 import { workOrderForm } from './workOrderForm'
 import { cafeOrder } from './cafe'
+import customerCreditLimit from './customerCreditLimit'
 
 export {
   confirmAction,
@@ -22,4 +23,5 @@ export {
   tourTimeAction,
   workOrderForm,
   cafeOrder,
+  customerCreditLimit,
 }
