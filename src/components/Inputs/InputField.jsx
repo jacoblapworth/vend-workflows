@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { ErrorMessage as Error } from 'react-hook-form'
+import { ErrorMessage as Error } from '@hookform/error-message'
 import { Label } from './Label'
 import { ErrorMessage } from '../SharedReact'
 

@@ -18,6 +18,7 @@
   "dependencies": {
     "@apollo/client": "^3.0.0-beta.53",
     "@apollo/react-hooks": "^3.1.5",
+    "@hookform/error-message": "^0.0.3",
     "@sentry/node": "^5.17.0",
     "@vendhq/shared-react": "^1.12.0",
     "@vendhq/vend-styles": "^3.2.0",
@@ -37,7 +38,7 @@
     "next-cookies": "^2.0.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-hook-form": "^5.7.2",
+    "react-hook-form": "^6.0.6",
     "react-is": "^16.13.1",
     "simple-oauth2": "^4.1.0",
     "styled-components": "^5.1.1",
