@@ -9,9 +9,11 @@ export default async function action(lineItem, ctx) {
   if (!saleCustomer.id) return
 
   const token = await redis.hgetall(`retailer:${domain_prefix}`)
+  redis.disconnect()
 
   if (!token) return
 
+  // eslint-disable-next-line no-unused-vars
   const { access_token, expires, expires_in, refresh_token, expires_at } = token
 
   const vendApi = axios.create({
