@@ -28,23 +28,22 @@ const handler = (req, res) => {
         expires_at,
       } = token
 
-      redis
-        .hset(
-          `retailer:${domain_prefix}`,
-          'domain_prefix',
-          domain_prefix,
-          'access_token',
-          access_token,
-          'expires',
-          expires,
-          'expires_in',
-          expires_in,
-          'expires_at',
-          expires_at,
-          'refresh_token',
-          refresh_token
-        )
-        .disconnect()
+      redis.hset(
+        `retailer:${domain_prefix}`,
+        'domain_prefix',
+        domain_prefix,
+        'access_token',
+        access_token,
+        'expires',
+        expires,
+        'expires_in',
+        expires_in,
+        'expires_at',
+        expires_at,
+        'refresh_token',
+        refresh_token
+      )
+      redis.disconnect()
 
       const signedToken = jwt.sign(token, PRIVATE_KEY)
 
@@ -59,6 +58,7 @@ const handler = (req, res) => {
       res.setCookie('token', signedToken, cookieConfig)
       res.statusCode = 302
       res.setHeader('location', '/custom-fields')
+      res.send({})
       return res.end()
     })
     .catch((error) => {

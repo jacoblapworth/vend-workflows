@@ -1,4 +1,4 @@
-import auth, { AuthorizationCode } from 'simple-oauth2'
+import { AuthorizationCode } from 'simple-oauth2'
 
 const domainPrefix = 'secure'
 
