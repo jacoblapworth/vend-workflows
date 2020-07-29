@@ -48,10 +48,7 @@ export function readyForPayment(event) {
         console.warn(error)
       }
     })
-    .filter((item) => {
-      console.log('item:', item)
-      return !!item
-    })
+    .filter((item) => !!item)
 
   return { actions }
 }

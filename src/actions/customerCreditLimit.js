@@ -1,6 +1,6 @@
 import { WORKFLOW_ACTIONS } from '../constants'
 
-export default async function action(lineItem, ctx) {
+export default function action(lineItem, ctx) {
   const { customer } = ctx
 
   if (!customer.id) return
