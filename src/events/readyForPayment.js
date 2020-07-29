@@ -49,7 +49,7 @@ export function readyForPayment(event) {
       }
     })
     .filter((item) => {
-      console.log(item)
+      console.log('item:', item)
       return !!item
     })
 
