@@ -1,7 +1,7 @@
 import * as Actions from '../actions'
 import { getValueForCustomField } from '../utils/customFields'
 
-async function lineItemActions(lineItem, ctx) {
+function lineItemActions(lineItem, ctx) {
   /*
   Look for a custom field on the line_item's product called "demo_rule"
   Use the value to call an action of the same name
@@ -21,7 +21,7 @@ async function lineItemActions(lineItem, ctx) {
     throw new Error(`No action with the name: "${RULE}"`)
   }
 
-  const ruleAction = await Actions[RULE](lineItem, ctx)
+  const ruleAction = Actions[RULE](lineItem, ctx)
   console.log('ruleAction', ruleAction)
 
   return ruleAction
@@ -31,7 +31,7 @@ export function readyForPayment(event) {
   const lineItems = event.sale.line_items
 
   const actions = lineItems
-    .flatMap(async (lineItem, i) => {
+    .flatMap((lineItem, i) => {
       console.log(`Line_item: ${i}`, lineItem)
 
       // Returns
@@ -41,7 +41,7 @@ export function readyForPayment(event) {
 
       // Line-item actions
       try {
-        const actions = await lineItemActions(lineItem, event)
+        const actions = lineItemActions(lineItem, event)
         console.log('Actions: ', actions)
         return actions
       } catch (error) {
